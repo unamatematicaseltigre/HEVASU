@@ -1,0 +1,763 @@
+\documentclass[letterpaper,12pt]{book}
+
+%configuración de babel
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+%configuración de fuentes, colores y gráficos
+\usepackage{pslatex}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{graficas/}}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor,colortbl}
+\definecolor{light-gray}{gray}{0.85}
+\definecolor{dark-gray}{gray}{0.20}
+\definecolor{shadecolor}{gray}{0.85}
+\definecolor{medium-gray}{gray}{0.50}
+\definecolor{brown}{named}{Brown}
+\definecolor{orange}{named}{BurntOrange}
+\definecolor{highlightyellow}{rgb}{1,1,0.52}
+\definecolor{navy}{rgb}{0,0,0.4}
+\definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+\definecolor{uclablue}{rgb}{0.33, 0.41, 0.58}
+\definecolor{commandcolor}{rgb}{0.2,0.2,0.62}
+\graphicspath{{graficas/}}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[mathscr]{euscript}
+\usepackage{listings}
+\usepackage{placeins}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+%configuraciones de bibliografía
+%\usepackage[fixlanguage]{babelbib}
+%\selectbiblanguage{spanish}
+\usepackage{url}
+\usepackage{hyperref}
+%\usepackage[datebegin]{flexbib}
+
+%definición de formato capitulos
+\usepackage[Bjornstrup]{fncychap}
+
+%definición de comandos
+\newcommand{\archivo}[1]
+{\texttt{#1}}
+\newcommand{\fileformat}[1]{\textbf{\texttt{#1}}}
+\newcommand{\comando}[1]
+{\textcolor{commandcolor}{\texttt{#1}}}
+\newcommand{\carpeta}[1]
+{\includegraphics[width=2ex]{folder.png}\texttt{#1}}
+
+%estilo de fuentes
+\renewcommand{\sfdefault}{phv}
+\renewcommand*{\familydefault}{\sfdefault}
+
+%datos de la obra
+\title{\centering\begin{tikzpicture}[scale=1.2]\filldraw[fill=black, draw=black] (0,1) -- (0,0.77) -- (0.3,0.46) -- (0.3,0.69) -- cycle;     \filldraw[fill=black, draw=black] (0,0.54) -- (0,0.31) -- (0.26,0.04) -- (0.29,0.02) -- (0.32,0.01) -- (0.35,0.02) -- (0.38,0.04) -- (0.39,0.06) -- (0.4,0.1) -- (0.4,0.69) -- (0.43,0.73) -- (0.45,0.74) -- (0.48,0.73) -- (0.72,0.46) -- (0.72,0.70) -- (0.50,0.95) -- (0.47,0.97) -- (0.43,0.98) -- (0.39,0.97) -- (0.36,0.95) --(0.35,0.93) -- (0.34,0.89) -- (0.34,0.28) -- (0.31,0.27) -- (0.28,0.28) -- cycle;\filldraw[fill=black, draw=black] (0.44,0.54) -- (0.44,0.31) -- (0.70,0.04) -- (0.73,0.02) -- (0.76,0.01) -- (0.79,0.02) -- (0.82,0.04) -- (0.83,0.06) -- (0.84,0.1) -- (0.84,0.69) -- (0.87,0.73) -- (0.89,0.74) -- (0.92,0.73) -- (1.16,0.46) -- (1.16,0.70) -- (0.94,0.95) -- (0.91,0.97) -- (0.87,0.98) -- (0.83,0.97) -- (0.80,0.95) --(0.79,0.93) -- (0.78,0.89) -- (0.78,0.28) -- (0.75,0.27) -- (0.72,0.28) -- cycle;\filldraw[fill=black, draw=black] (0.88,0.54) -- (0.88,0.31) -- (1.16,0.01) -- (1.16,0.24) -- cycle;\end{tikzpicture}\\HEVASU 2.0\\{\small Manual de Usuario}\\ \rule{\linewidth}{1mm}}
+\author{José L. Romero P.}
+\date{2014}
+
+\begin{document}
+%configuraciones para listings
+\lstdefinestyle{textoplano}
+	{basicstyle=\footnotesize\ttfamily,
+	numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt,
+	backgroundcolor=\color{light-gray},
+	escapeinside={(*@}{@*)}
+       }
+\frontmatter
+	\maketitle
+	\thispagestyle{empty}
+	\null
+	\vfill
+	Copyright \textcopyright 2014 por José Loreto Romero Palma.\\[3ex]
+	
+	\includegraphics{by-nc-sa.png}
+	
+	El presente Manual de Usuario de HEVASU 2.0 se distribuye bajo una \href{http://creativecommons.org/licenses/by-nc-sa/4.0/deed.es_ES}{Licencia de Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 Internacional}.
+
+	\tableofcontents
+\parskip=3mm
+\mainmatter
+\renewcommand{\chaptermark}[1]{ \markboth{#1}{} }
+\renewcommand{\sectionmark}[1]{ \markright{#1} }
+\setlength{\fboxsep}{2pt}
+\chapter{Introducción} \label{cap:intro}
+\section{¿Qué es HEVASU?}
+HEVASU (\underline{H}erramienta de apoyo a la \underline{EV}aluación y \underline{A}sesoría académica en la \underline{UN}A) pretende satisfacer los requerimientos de información sobre los procesos de evaluación, orientación y asesoría académica para quienes son sus principales agentes: los asesores, orientadores y preparadores en las unidades de apoyo y centros locales de la Universidad Nacional Abierta a lo largo y ancho del país.  Esta aplicación informática, dirigida principalmente al personal docente que labora en la U.N.A y que de alguna manera participa en los procesos de evaluación académica y/o administración de la instrucción, genera las hojas de cálculo con la data de la nomina estudiantil (asignaturas inscritas, carrera, etc.) para que el personal académico pueda verter los objetivos logrados de cada una de las materias que asesora (y eventualmente publicarlos en un blog en forma digital), así como también registrar las asesorias o servicios de orientación brindados a los estudiantes. 
+
+HEVASU genera estas hojas de cálculo (como archivos de Excel) a partir de los listados en \fileformat{pdf} y en formato \fileformat{csv} que se descargan desde la página web de seguridad de la Secretaría de la UNA: https://www.unasec.com.  A su vez, HEVASU automatiza la generación de los certificados de aprobación del curso introductorio y de los reportes de actividades y de planificación operativa para el personal académico a partir de los archivos Excel de evaluación y asesoría suministrado por cada docente.  En el procesamiento de estos archivos de Excel se generan archivos de formato abierto y universal (archivos \fileformat{csv}) con la data de los procesos académicos cumplidos a lo largo de cada semestre.  
+\section{¿Para qué y porqué se crea HEVASU?}
+Las funcionalidades de HEVASU son tangenciales y complementarias a las del SAIUNA (Sistema Automatizado de Inscripción de la Universidad Nacional Abierta), que es el conjunto de aplicaciones informáticas orientadas gestionar 
+la información académica generada a partir de la lectura de hojas de respuesta (pruebas objetivas) y la evaluación de las pruebas de desarrollo y trabajos prácticos departe de los asesores. Hasta 1995, cuando fue puesto en marcha el SAIUNA, estas tareas eran realizadas manualmente por el personal del CIIUNA (Centro de Información Integrada de la UNA).  Actualmente, la carga de los resultados de la corrección de pruebas de desarrollo y trabajos prácticos es realizada por los asesores mismos de cada Centro Local mediante una aplicación denominada PRRPD (Planillas de Resumen de Resultados de Pruebas de Desarrollo), que forma parte del conjunto de aplicaciones del SAIUNA.
+
+La aplicación PRRPD fue desarrollada bajo MSDOS y maneja tablas de datos en formato FoxPro. Lo primero implica que ya ha alcanzado su obsolecencia: la versión más reciente de Windows en la cual es posible ejectuar este programa es el Windows XP, que a partir de abril del 2014, ya no será soportada por Microsoft. Lo segundo implica que, como FoxPro no es un formato abierto de bases de datos, no se pueden utilizar las tablas de datos para algo distinto a lo que contempla el conjunto de aplicaciones de SAIUNA.  Desde la perspectiva de los procesos del CIIUNA o la Dirección de Registro y Control de Estudios, esto quizás no es un problema, pues el SAIUNA se ha venido usando consuetudinariamente en los Centros Locales de la UNA desde hace cási dos decadas.  Desde la perspectiva de los mismos asesores u orientadores que desearían hacer un uso distinto de esta data no contemplado por el SAIUNA, si lo es. Tales usos  podrían ser, por ejemplo:  
+
+\begin{itemize}
+	\item Generar reportes de Control de Objetivos Logrados que el asesor pueda publicar en su blog.
+	\item Generar reportes de actividades cumplidas para los asesores y orientadores, incluyendo: matricula total atentida por asignatura y por carrera, pruebas y trabajos corregidos por asignatura y por carrera, así como las asesorías académicas clasificadas por tipo, asignatura, carrera, unidad de apoyo, etc.
+	\item Hacer minería de datos para descubrir cuales factores inciden en el éxito académico en las asignaturas que uno o varios docentes asesoran.
+	\item Incorporar data personal sobre cada estudiante (específicamente correo elec\-trónico, telefono o celular) para facilitar el contacto entre el asesor y sus estudiantes en cada asignatura que asesora (para enviar notificaciones por correo electrónico o mensajería de texto, por ejemplo).
+	\item Automatizar la generación de certificados de aprobación del Curso Introductorio.
+	\item Analizar la data histórica referente a la presentación de pruebas para construir modelos de predicción que estimen la cantidad de examenes a reproducir en cada momento de evaluación.
+\end{itemize}
+
+HEVASU no pretende remplazar la aplicación PRRPD; más bien, funciona de forma paralela y concurrente a ésta. El principio operativo básico de HEVASU es tomar como entrada el conjunto de listados que se emiten desde la página de UNASEC como archivos \fileformat{pdf} referentes a las materias inscritas en cada Centro Local y en cada lapso académico y generar para cada asesor del Centro Local los archivos de hojas de cálculo (Excel) con las nominas de estudiantes por cada materia que asesora.  A lo largo del semestre, cada asesor vacia la data sobre las asesorías brindadas y los objetivos logrados por los estudiantes tras cada momento de evaluación (pruebas de desarrollo y trabajos) en estas hojas de cálculo. Como estas hojas de cálculo son archivos en formato Excel 2003, se pueden abrir y modificar desde cualquier computador que tenga aplicaciones de ofimática (Microsoft Office, LibreOffice u OpenOffice por ejemplo), sin necesidad de instalar HEVASU. Posteriormente, HEVASU lee estos archivos de Excel para generar los reportes de actividades de cada asesor o generar los certificados de aprobación del Curso Introductorio para el caso de los orientadores. Como subproducto de estos procesos, HEVASU también exporta esta data a archivos \fileformat{csv}, que pueden ser leidos desde cualquier paquete de análisis estadístico/cuantitativo (R, SAS, SPSS) para el eventual estudio de los procesos académicos de la Universidad Nacional Abierta.
+
+HEVASU es software libre - el propósito de esta aplicación es basicamente transformar la data que genera el SAIUNA (que se genera en un formato propietario de bases de datos como lo es FoxPro) a un formato abierto y universal de tablas de datos - el formato \fileformat{csv} - que es manejable desde cualquier plataforma y que pueda ser leido por cualquier aplicación de base de datos, hojas de cálculo o paquetes estadísticos.  Esto, aunado al hecho que HEVASU es de código abierto, hace posible ampliarla o crear otras aplicaciones o herramientas que utilicen estos datos para otros usos no contemplados originalmente- como por ejemplo para realizar análisis estadísticos o de minería de datos referentes al rendimiento académico de los estudiantes.  Bajo el orden actual de las cosas, la data sobre los procesos de evalución académica que los mismos docentes de la Universidad Nacional Abierta generamos en el desempeño de nuestras labores rutinarias de cargas de notas no es utilizable para otro propósito que servir de insumo al SAIUNA.
+
+\section{Resumen de las funcionalidades de HEVASU}
+
+HEVASU provee las siguientes funcionalidades desde un menú principal con interfáz gráfica:
+
+\begin{itemize}
+	\item Importar la data en los listados de inscritos regulares, inscritos en el curso introductorio, nuevos ingresos, reingresos, reingreso de egresados y la data personal de los estudiantes del Centro Local disponibles desde \url{https://www.unasec.com} en varios formatos (\fileformat{pdf} y \fileformat{csv}) para generar y consolidar estos datos en archivos \fileformat{csv} (formato abierto), que pueden ser leidos desde cualquier programa de hoja de cálculo, gestionador de base de datos o software estadístico.
+	\item Generar un libro de cálculo para cada asesor con las nominas de cada materia que asesora separadas como hojas de cálculo de este libro. En este libro de control de objetivos logrados, el asesor podrá indicar los objetivos logrados por cada estudiante de cada una de sus asignaturas e indicar las fechas en las que se corrigen las evaluaciones.
+	\item Generar un libro de cálculo para cada asesor a fín de que éste pueda digitalizar los datos de las asesorías brindadas y en el caso de los orientadores, este libro incluye una hoja adicional donde se pueden vaciar los servicios de orientación brindados (tramitación de becas, ayudantías, equivalencias, etc.).
+	\item Generar el reporte de actividades cumplidas a partir de los libros de objetivos logrados y de asesorías de un asesor. El reporte de actividades incluye la siguiente información: matricula atendida por carrera, asignatura y unidad de apoyo, pruebas de desarrollo corregidas por carrera y asignatura, trabajos corregidos por carrera y asignatura, asesorías dadas por carrera, asignatura y tipo, entre otros.
+	\item Generar el reporte para la planificación operativa a fín de facilitar la rendición trimestral del plan operativo.  HEVASU puede generar este reporte para cada docente por separado o reunir un grupo de docentes (de todo el Centro Local, por ejemplo) y consolidar toda la información bajo un solo reporte.
+	\item A partir del libro de objetivos logrados de un orientador, generar automaticamente los certificados de aprobación del curso introductorio en formato \fileformat{pdf}.
+	\item Agregar o eliminar asesores en un Centro Local y modificar sus datos.
+	\item Agregar, eliminar o modificar los datos de las asignaturas ofertadas en la UNA.
+\end{itemize}
+
+\chapter{Instalación y puesta en marcha}
+\section{Requerimientos e instalación}
+Actualmente, HEVASU corre sólo bajo ambiente Linux y ha sido probado en distintas versiones de Ubuntu/Xubuntu (desde la 11.04 en adelante) y en Linux Mint 12.0. Para correr la aplicación, se requiere instalar los siguientes paquetes:
+
+\begin{itemize}
+	\item R versión 2.10 o posterior. Esta aplicación está disponible en los repositorios de Ubuntu. Para instalarla, ejecute el siguiente comando desde la cónsola de comandos: 
+
+	\begin{center}
+	  \comando{sudo apt-get install r-base}
+	\end{center}
+	
+	\noindent{}o instalela desde el Synaptic. Actualmente, para la versión 13.10 de Ubuntu (``Saucy Salamander''), la versión de R disponible en los repositorios es la 3.0.1.
+	
+	\item Entorno completo de ejecución Java (Java run-time) y entorno de desarrollo. Para instalar este paquete, ejecute el siguiente comando desde la cónsola de comandos:
+	
+	\begin{center}
+	  \comando{sudo apt-get install default-jdk}
+	\end{center}
+	
+	\noindent{}o instalela desde el Synaptic. El paquete antes mencionado utiliza \texttt{openjdk\-6-jdk} o \texttt{openjdk-7-jdk} según la arquitectura (32 bits o 64 bits, respectivamente) de su sistema operativo Linux.
+	
+	\item Interfáz de bajo nivel para R a Java. Desde la cónsola, ingrese el siguiente comando para para su insalación: \comando{sudo apt-get install r-cran-rjava}.
+	
+	\noindent{}Al instalar este paquete, debe seguidamente configurar Java para su instalación de R. Esto se hace mediante el siguiente comando en la consola:
+
+	\begin{center}
+		\comando{sudo R CMD javareconf}
+	\end{center}
+	
+	\item Librerías de desarrollo de GTK 2. El comando para su instalación desde la cónsola es \comando{sudo apt-get install libgtk2.0-dev}.
+	
+	\item LibreOffice. Esta suite de programas de ofimática vienen en todas las versiones de Ubuntu, pero en caso de no tenerla, puede instalarla ejecutando los siguientes comandos desde la cónsola:
+	
+	\begin{center}
+		\parbox{54ex}{
+		\comando{sudo apt-get install libreoffice}
+		
+		\comando{sudo apt-get install libreoffice-common}
+		}
+	\end{center}
+	
+	\item Utilidades para documentos \archivo{PDF} basada en Poppler. Se instala mediante la siguiente línea desde la cónsola de comandos: \comando{sudo apt-get install poppler-utils}
+\end{itemize}
+
+Aparte de los paquetes \texttt{deb} mencionados arriba, es preciso instalar las siguientes librerías de R:
+
+\begin{itemize}
+	\item \texttt{rJava} - este paquete está incluido dentro del paquete Debian homónimo instalado en el paso anterior, pero este último podría no estar actualizado.
+	\item \texttt{XLConnect}
+	\item \texttt{gWidgets}
+	\item \texttt{RGtk2}
+	\item \texttt{gWidgetsRGtk2} 
+\end{itemize}
+
+Para la instalación de estas librerías, debe ejecutar R como superusuario. Estando en la cónsola de R, ingrese el siguiente comando: \comando{install.packages(c( "XLConnect", "gWidgets", "}\comando{RGtk2}\comando{", "gWidgetsRGtk2"))} . Al hacerlo, aparecerá un cuadro de dialogo emergente pidiéndole el repositorio. Al seleccionar el repositorio de su preferencia desde este cuadro de diálogo comenzará la descarga e instalación de estas liberías.
+
+Una vez instalados todos los paquetes y librerías indicados arriba, copie la carpeta \carpeta{HEVASU} a su directorio raíz. Seguidamente debe abrir esta carpeta y ejecutar el script bash en el archivo \archivo{instalar.sh}. Debe habilitar su ejecución abriendo la ventana de ``Propiedades'' haciendo clic al botón derecho del ratón sobre el ícono de este archivo (ver Fig. \ref{fig:scriptinstalacion}). Una vez abierta la ventana de propiedades, seleccione la pestaña de ``Permisos'' y marque la opción ``Programa'' (Permitir que este archivo se ejecute como programa). Al ejecutarse, este script efectivamente crea un icono de acceso directo bajo la categoría de ``Oficina'' en su menú principal de aplicaciones. En lo sucesivo podrá abrir HEVASU desde el menú principal de aplicaciones. 
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{habilitar_ejecutable.png}
+	\caption{Habilitación del script ejecutable de instalación}
+	\label{fig:scriptinstalacion}
+\end{figure}
+
+Otro método para instalar HEVASU es mediante la instalación de una distribución en Live CD de Ubuntu con todos los paquetes requeridos que fueron mencionados anteriormente. En este Live CD, cuya imágen ISO está disponible para su descarga en los enlaces que se indican en \url{http://unamatematicaseltigre.blogspot.com/}, se encuentra la aplicación HEVASU ya lista para usar.
+
+\section{Arranque de la aplicación}
+
+Una vez instalada HEVASU, se puede ejecutar desde el menú de de aplicacione bajo la categoría de ``Oficína''. La aplicación tarda varios segundos en arrancar y al terminar de arrancar, verá en la pantalla una ventana con el menú principal (Fig. \ref{fig:menuprincipal}).
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.98\textwidth]{menu_principal.png}
+	\caption{Ventana principal de HEVASU}
+	\label{fig:menuprincipal}
+\end{figure}
+
+En la parte central de la ventana principal de la aplicación hay una barra indicando el directorio de trabajo actual. Al generar los libros de asesoría y control de objetivos logrados, este será el directorio en el cual se crearán estos archivos, así como las tablas con la nómina de los alumnos regulares inscritos y los inscritos en el curso introductorio. Se puede seleccionar otro directorio de trabajo mediante una de las funciones en el submenú de ``Archivo'' de la barra de herramientas principal.
+
+En la parte central hay también un selector para escoger el lapso académico actual, la unidad de apoyo o sede y uno o varios profesores de la planta docente del Centro Local. Estos selectores se utilizan para algunas de las acciones que realiza HEVASU\label{sec:selectores_principales}.
+
+Estas acciones se acceden mediante la barra superior de herramientas en la ventana principal de la aplicación (ver Fig. \ref{fig:menuprincipal}). Esta barra de herramientas contiene un menú con las opciones que se detallan abajo, junto a una breve descripción de lo que hace cada una.
+
+\begin{tabular}[t]{p{16ex}p{46ex}}
+ \texttt{Archivo} & Las sub-opciones bajo esta opción permiten cambiar el directorio de trabajo, leer los listados en \fileformat{pdf} y repararlos. Aquí también se generan los archivos \fileformat{csv} con los listados de nuevos ingresos, reingresos y reingreso de egresados.\vspace{1ex}\\
+ \texttt{Editar} & Aquí se incluyen las herramientas para editar la base de datos de los asesores y de las materias. Desde este menú tambien se pueden ir agregando lapsos académicos o seleccionar la sede (Centro Local o Nivel Central) desde donde se va a operar con HEVASU.\vspace{1ex}\\
+ \texttt{Generar xls} & Esta opción incluye las subopciones para generar los libros de Excel (\archivo{xls}) para el control de los objetivos logrados y las asesorías.\vspace{1ex}\\
+ \texttt{Reportes y certificados} & Esta opción incluye las subopciones para generar los certificados de aprobación a partir del libro de control de objetivos logrados de un orientador y para generar los reportes de activiades.
+\end{tabular}
+
+Las herramientas mencionadas arriba serán tratadas en los capitulos subsecuentes de este manual.
+
+\section{Esquema de trabajo en HEVASU}
+
+A continuación se presenta un esquema de trabajo para el uso de HEVASU. Cada docente de la UNA puede instalar HEVASU como aplicación monousuario en su computador\footnote{Inclusive, Linux se puede instalar al lado de Windows para funcionar en modo de arranque dual.} o el Técnico en Informática del Centro Local o Unidad de Apoyo (o quien realice estas funciones en la respectiva unidad administrativa de la Universidad) puede instalar HEVASU en un computador, desde donde cada semestre generará los libros Excel de Asesoría y Evaluación para enviarselos a los docentes y durante el transcurso del semestre acopiará dichos archivos para generar los reportes o certificados de aprobación del Curso Introductorio. En todo caso, se requiere realizar un conjunto de tareas con cierta frecuencia:
+
+\begin{enumerate}
+	\item Tras instalar HEVASU en un computador, es necesario indicar en cuál Centro Local se va a usar o si se va a usar para los docentes del Nivel Central. En los Centros Locales, el personal docente atiende un universo de estudiantes específico a cada Centro Local, pudiendo atender estudiantes de una o más Unidades de Apoyos o de la Sede. Sin embargo, los docentes de Nivel Central que desempeñan labores de asesoría - más que todo para asignaturas que no son asesoradas en los Centros Locales - atienden estdiantes de todo el país. El usuario debe definir si va a usar HEVASU para un determinado Centro Local o en \emph{``modo Nivel Central''}\label{concepto:modo_NC}. Cuando se usa HEVASU ``modo Nivel Central'', solo estarán disponibles las funcionalidades especificas para los Asesores y no las de los Oriententadores o Preparadores\footnote{En Nivel Central no se realiza la administración de los procesos de instrucción de los Orientadores ni de los Preparadores.}.  La definición del Centro Local o del Nivel Central se realiza desde una opción que se encuentra en el menú \texttt{Editar} (ver Capítulo \ref{cap:asignaturas_y_asesores}).
+	\item Una vez definido el Centro Local para el cual se va a usar la aplicación (o si se va a usar en ``modo Nivel Central''), es necesario definir los datos de cada docente (los usuarios finales) para quienes se van a generar los libros de Excel de Evaluación y Asesoría que a su vez serán procesados por HEVASU para generar los distintos reportes y certificados. Esto se realiza desde la funcionalidad respectiva que se encuentra en el menú \texttt{Editar}.
+	\item Aunque no ocurre con tanta frecuencia, cuando cambia el plan de evaluación de alguna asignatura asesorada hay que editar los datos de la materia en la base de datos de asignaturas de HEVASU para que la aplicación pueda generar correctamente los libros Excel de evaluación. Esto también se realiza desde la funcionalidad respectiva de edición de datos de asignatura en el menú \texttt{Editar}. 
+	\item Con cada nuevo semestre, puede ser necesario ir definiendo los lapsos academicos adicionales (ej. ``2015-1'',``2015-2'', etc.) para que puedan ser seleccionados desde el control de selección del Lapso Académico en la ventana principal de la aplicación (ver Fig. \ref{fig:menuprincipal}. Esto también se hace desde una oción que se encuentra en el menú \texttt{Editar}.  Con respecto al lapso académico, asegurese de que seleccione el lapso académico actual en el selector de lapso académico de la vantana principal de la aplicación al comienzar cada sesión de trabajo en HEVASU.
+	\item Antes del comienzo de cada semestre, es recomendable crear para cada semestre una carpeta o directorio que contenga todos estos archivos y las bases de datos que genera HEVASU. En lo sucesivo, llamaremos a este directorio el \emph{directorio de trabajo}. Utilice un nombre fácilmente identificable para el directorio de trabajo, como por ejemplo ``2014-1'' o ``semestre\_2014-1''. Al iniciar una sesión de trabajo en HEVASU, no se olvide indicar el directorio de trabajo (ver Capítulo \ref{cap:archivos}, Sección \ref{sec:carpeta_trabajo} para ver cómo).
+	\item Tras finalizar el periodo de inscripción al comienzo de cada semestre, el administrador o usuario de HEVASU deberá descargar los listados en \fileformat{pdf} con las nominas de estudiantes desde la página de seguridad de UNASEC, tal como se indica en el capítulo \ref{cap:archivos} en la sección \ref{sec:descarga_listados}. Estos archivos \fileformat{pdf} deberán ser ubicados en el directorio de trabajo respectivo y procesados como se indica en el mismo capitulo para que HEVASU pueda utilizar la data contenida en ellos. También será necesario conseguir el archivo \fileformat{pdf} con el cronograma de pruebas y procesarlo para incorporar aquellos datos en HEVASU.  Los usuarios que utilicen HEVASU en ``modo Nivel Central'' deberan descargar los listados \fileformat{pdf} de inscripción de estudiantes regulares de todos los Centros Locales. Desde la misma opción de ``Procesar los listados de estudiantes regulares'' que utilizan los usuarios de los Centros Locales, se consolidará la nómina estudiantíl de todo el país en un único archivo de nómina.
+	\item Una vez procesado los listados de nómina de estudiantes regulares y de estudiantes del Curso Introductorio (sólo en los Centros Locales o Unidades de Apoyo), se deben generar los libros de Evaluación y Asesoría para cada docente en la base de datos de docentes de HEVASU. Este procedimiento se explica con más detalle en el capítulo \ref{cap:generar_xls}. En ese capitulo también se explica como deben ser llenados y manipulados estos archivos.
+	\item Finalmente, al culminar el semestre o cada vez que sea necesario, se deben acopiar los libros de Excel de todos los docentes en el directorio de trabajo para poder generar los reportes y certificados. Estas tareas se explican con mayor detalle en el Capitulo \ref{cap:generar_reportes}.
+\end{enumerate}
+
+\chapter{Procesamiento de los listados}\label{cap:archivos}
+
+\section{Descarga de los listados desde UNASEC}\label{sec:descarga_listados}
+Cómo se mencionó en el capítulo de \nameref{cap:intro}, la materia prima de HEVASU es la data de la nómina estudiantil matriculada en el curso introductorio y en los estudios regulares que se encuentra disponible en la \href{https://www.unasec.com}{página de seguridad de UNASEC}, en forma de listados \fileformat{pdf} y data tabulada en formato \fileformat{csv}. Al importar la nómina estudiantíl del curso introductorio y de los alumnos regulares, HEVASU a su vez genera archivos \fileformat{csv} que se pueden abrir desde cualquier aplicación de hoja de cálculo, paquete estadístico o incluso hasta con un editor de texto plano.
+
+Para descargar los listados, debe de abrir en el navegador la página de seguridad de UNASEC\footnote{Para abrir la página de seguridad se requiere tener un usuario y clave. Si no tiene un usuario y clave, consulte con el Técnico de Recursos de Informática de su Centro Local o Unidad de Apoyo para solicitarle estos archivos.}. Una vez abierta la página, seleccione el lapso académico (por ejemplo, 2013-2) en la barra superior de la página y el tipo de curso (``Inscripción Regular xxxx-x'' o ``Curso Introductorio'') en el menú desplegable según desee descargar la data de los alumnos regulares o del curso introductorio. Al descargar estos archivos, debe guardarlos en una carpeta en su computador. Se recomienda crear una carpeta para cada periodo académico en la cual pueda colocar todos los listados de UNASEC de un semestre y los archivos de data que genera HEVASU.
+
+A continuación se indica cómo y donde descargar cada uno de los listados requeridos por HEVASU.
+
+\subsection{Data de los alumnos regulares}\label{subsec:data_regulares}
+Para la data de los alumnos regulares, es preciso descargar dos listados desde UNASEC: el listado de alumnos regulares inscritos (\fileformat{pdf}) y el listado con la data personal de los alumnos regulares (es un archivo \fileformat{csv}). Ambos listados contienen la data de todos los alumnos del Centro Local. Al momento de su descarga desde UNASEC, le aparecerá un selector en el cual deberá indicar el Centro Local correspondiente.
+
+El listado \fileformat{pdf} se puede ubicar en 'Estadísticas/Listados' $\rightarrow$ 'Listados' $\rightarrow$ 'Inscripción Regular' $\rightarrow$ 'Validados' $\rightarrow$ 'Validados Totales', tal como se muestra en la Fig. \ref{fig:regulares_pdf}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{UNASEC_listado_regulares.png}
+  \caption{Listado de alumnos regulares inscritos (archivo \fileformat{pdf})}
+  \label{fig:regulares_pdf}
+\end{figure}
+
+El listado \fileformat{csv} con la data personal de los estudiantes regulares se puede descargar desde 'Estadísticas/Listados' $\rightarrow$ 'Listados' $\rightarrow$ 'Inscripción Regular' $\rightarrow$ 'Validados' $\rightarrow$ 'Inscritos Validados (Excel)', tal como se muestra en la Fig. \ref{fig:regulares_csv}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{UNASEC_datos_personales_regulares.png}
+  \caption{Listado de la data personal de los alumnos regulares inscritos (archivo \fileformat{csv})}
+  \label{fig:regulares_csv}
+\end{figure}
+
+\FloatBarrier
+
+\subsection{Data de los alumnos del Curso Introductorio}
+Una vez seleccionado el período académico y ``Curso Introductorio'' en el submenú correspondiente, puede descargar los listados con la nómina matriculada (archivo \fileformat{pdf}) y la data personal de los estudiantes (archivo \fileformat{csv}).
+
+El listado \fileformat{pdf} se puede ubicar en 'Estadísticas/Listados' $\rightarrow$ 'Por Sede' $\rightarrow$ 'Listado Validados', tal como se muestra en la Fig. \ref{fig:introductorio_pdf}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{UNASEC_listado_introductorio.png}
+  \caption{Listado de alumnos inscritos en el Curso Introductorio (archivo \fileformat{pdf})}
+  \label{fig:introductorio_pdf}
+\end{figure}
+
+El listado \fileformat{csv} con la data personal de los estudiantes del Curso Introductorio se puede descargar desde 'Estadísticas/Listados' $\rightarrow$ 'Generales' $\rightarrow$ 'Inscritos Validados (Excel)', tal como se muestra en la Fig. \ref{fig:introductorio_csv}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{UNASEC_datos_personales_introductorio.png}
+  \caption{Listado de la data personal de los alumnos inscritos en el CI (archivo \fileformat{csv})}
+  \label{fig:introductorio_csv}
+\end{figure}
+
+\subsection{Data de los nuevos ingresos y reingresos}
+
+Los listados de nuevos ingresos, reingresos (3 o más lapsos) y reingresos de egresados contienen todos los estudiantes de un Centro Local en esa condición. A fín de ayudar en la tarea de armar los expedientes de nuevos estudiantes, HEVASU puede generar estos listados en formato \fileformat{csv} pero limitados a los estudiantes de una Oficina de Apoyo en específico.  Estos listados han de descargarse desde UNASEC como se indica seguidamente.
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{UNASEC_listado_nuevos.png}
+  \caption{Listado de los estudiantes regulares de nuevo ingreso \fileformat{pdf})}
+  \label{fig:nuevoingreso}
+\end{figure}
+
+El listado \fileformat{pdf} de los nuevos ingresos de todo el Centro Local se descarga navegando desde 'Estadísticas/Listados' $\rightarrow$ 'Listados' $\rightarrow$ 'Inscripción Regular' $\rightarrow$ 'Estudiantes Nuevo Ingreso', tal como se muestra en la Fig. \ref{fig:nuevoingreso}.
+
+Para descargar el listado de los reingresos (3 o más lapsos academicos sin cursar estudios), debe navegar desde 'Estadísticas/Listados' $\rightarrow$ 'Listados' $\rightarrow$ 'Inscripción Regular' $\rightarrow$ 'Validados' $\rightarrow$ 'Reingreso 3 o más Lapsos', tal como se muestra en la Fig. \ref{fig:reingresos3omas}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{UNASEC_listado_reingreso.png}
+  \caption{Listado de los estudiantes regulares de reingreso (3 o más lapsos) \fileformat{pdf})}
+  \label{fig:reingresos3omas}
+\end{figure}
+
+Por último, para descargar el listado de los reingresos (egresados), debe navegar desde 'Estadísticas/Listados' $\rightarrow$ 'Listados' $\rightarrow$ 'Inscripción Regular' $\rightarrow$ 'Validados' $\rightarrow$ 'Reingreso Egresados UNA', tal como se muestra en la Fig. \ref{fig:reingresosegresados}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.9\textwidth]{UNASEC_listado_reingreso_egresados.png}
+  \caption{Listado de los estudiantes regulares de reingreso (egresados UNA) \fileformat{pdf})}
+  \label{fig:reingresosegresados}
+\end{figure}
+
+\section{El directorio de trabajo} \label{sec:carpeta_trabajo}
+
+Como se menciono anteriormente, es conveniente colocar todos los archivos de listados de UNASEC de cada semestre en una sola carpeta- esta sería la \emph{carpeta de trabajo}. Todos los archivos que genera HEVASU - los que genera al procesar los listados de UNASEC, los libros Excel de objetivos logrados y de asesoría para cada asesor, los reportes de actividades de los asesores, etc. - se crean en la carpeta de trabajo. Por lo tanto, antes de procesar los listados de estudiantes regulares y del Curso Introductorio, es preciso indicar el directorio de trabajo. Esto se hace mediante la opción ``Seleccionar carpeta de trabajo'' en la parte superior del submenú de ``Archivo'' (ver Fig. \ref{fig:menuarchivo}).
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{archivo.png}
+  \caption{Submenú ``Archivo'' para los usuarios de los Centros Locales. Este submenú es distinto para los usuarios en modo ``Nivel Central''.}
+  \label{fig:menuarchivo}
+\end{figure}
+
+Al escoger esta opción del submenú, aparecera un cuadro emergente pidiendole la ubicación de la carpeta de trabajo (ver Fig. \ref{fig:seleccionar_carpeta_trabajo}). Tras ubicar la carpeta de trabajo y pulsar el boton de ``Aceptar'' en la parte inferior derecha del cuadro emergente, podrá ver la ruta de ubicación de la carpeta de trabajo en la ventana principal de HEVASU.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{seleccionar_carpeta_trabajo.png}
+  \caption{Cuadro emergente para seleccionar la carpeta de trabajo}
+  \label{fig:seleccionar_carpeta_trabajo}
+\end{figure}
+
+\section{Procesamiento de los listados de alumnos regulares y del C.I.} \label{sec:procesar_listados}
+
+Para poder generar los libros de Excel para los asesores, los reportes de actividades, los certificados de aprobación del Curso Introductorio y cualquier otro producto de HEVASU, es preciso procesar primero los listados de alumnos regulares y del Curso Introductorio que se descargaron desde UNASEC. Esto se hace seleccionando las opciones ``Procesar listado de estudiantes regulares'' y ``Procesar listado de estudiantes curso introductorio'' en el submenú de ``Archivo'' de la aplicación. Este proceso varia un poco según se utilice HEVASU para un Centro Local o para el Nivel Central.
+
+\subsection{Usuarios de un Centro Local}
+
+Al hacer click sobre cualquiera de las opciones ``Procesar listado de estudiantes regulares'' o ``Procesar listado de estudiantes curso introductorio''en el submenú de ``Archivo'' (ver Fig. \ref{fig:menuarchivo}), aparecerá un cuadro de diálogo emergente como el de la Fig. \ref{fig:procesarlistados}. Para ambos casos - estudiantes regulares y estudiantes del Curso Introductorio - el cuadro de dialogo es muy similar. Deberá indicar el listado \fileformat{pdf} con la nómina estudiantil y el listado \fileformat{csv} con la data personal de los estudiantes. Esto se hace haciendo clic sobre cada uno de los iconos -  \includegraphics[width=2ex]{application-pdf.png} y \includegraphics[width=2ex]{excel.png}, tras lo cual se abrirá un cuadro de dialogo emergente para pedirle la ubicación del archivo correspondiente.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{procesar_listados.png}
+  \caption{Cuadro emergente para seleccionar los archivos de UNASEC y procesar los listados}
+  \label{fig:procesarlistados}
+\end{figure}
+
+Las rutas de ubicación de los archivos se visualizan en rojo al inicio para indicar que el archivo indicado por esa ruta es inexistente. Al ir seleccionando los archivos correspondientes a cada listado, la ruta de ubicación seleccionada se visualizará en verde. Cuando se haya seleccionado ambos listados, puede hacer clic sobre el botón ``Ejecutar'' ubicado en la parte central inferior del cuadro de diálogo emergente. Deberá esperar unos instantes mientras HEVASU procesa estos listados. Una barra verde en la parte inferior de la ventana principal de la aplicación (ver Fig. \ref{fig:procesando_listados}) indicará el progreso de la operación.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{procesando_listados.png}
+  \caption{Barra en la parte inferior de la ventana principal indicando el progreso de la operación}
+  \label{fig:procesando_listados}
+\end{figure}
+
+Al cabo de esta operación, se generarán dos archivos nuevos en la carpeta de trabajo: \archivo{nomina\_regularxx.RData} y \archivo{nomina\_regularxx.csv} en caso de haber procesado los listados de los estudiantes regulares o \archivo{nomina\_introductorioxx\-.RData} y \archivo{nomina\_introductorioxx.csv} en caso de haber procesado los listados de los alumnos del Curso Introducorio\footnote{El \texttt{xx} en el nombre de ruta de estos archivos representa los dos dígitos del código del Centro Local para el que se está usando HEVASU.}. Los archivos de extensión \texttt{.RData} son archivos internos con los cuales trabaja la aplicación y los archivos de extensión \texttt{.csv} contienen la misma información que sus contrapartes \texttt{.RData}, con la diferencia de que pueden ser leidos (y editados) mediante un editor de texto plano o una aplicación de hoja de cálculo. Estos últimos se producen en caso de que sea necesario editar manualmente el archivo para corregir los datos de la nómina estudiantíl. El procedimiento para reparar estos errores se describe en la Sección \ref{sec:depuracion} de este capítulo. En tal caso, tras el procesamiento de los listados descrito en esta sección, se visualizará un cuadro emergente aviandole al usuario que debe corregir los archivos \fileformat{csv} (ver Fig. \ref{fig:aviso1}).
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{aviso1.png}
+  \caption{Aviso de error en el procesamiento de los listados UNASEC}
+  \label{fig:aviso1}
+\end{figure}
+
+\subsection{Procesamiento de listados de alumnos regulares para el Nivel Central}
+
+Cómo se explicó anteriormente (pg. \pageref{concepto:modo_NC}), cuando se emplea HEVASU para la gestión de nóminas de estudiantes por los docentes del Nivel Central, es necesario incorporar las nóminas de estudiantes de todos los Centros Locales. Para cada Centro Local, se debe descargar el listado \fileformat{pdf} de la nómina de estudiantes regulares y el archivo \fileformat{csv} con la data personal de esos estudiantes (ver Sección \ref{subsec:data_regulares}). Debe colocar todos los archivos descargados en el directorio de trabajo. Al hacer clic sobre el submenú ``Archivo'' en la barra superior de la ventana principal de la aplicación, se desplegará un menú como el de la Figura \ref{fig:menuarchivo_NC}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{archivo_NC.png}
+  \caption{Submenú ``Archivo'' para los usuarios del Nivel Central. A diferencia del submenú para los Centros Locales, en este menú se han deshabilitado algunas opciones.}
+  \label{fig:menuarchivo_NC}
+\end{figure}
+
+Al seleccionar la opción ``Procesar listado de estudiantes regulares'' en este submenú, se desplegará una ventana como se muestra en la Figura \ref{fig:procesarlistados_NC}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{procesar_listados_NC.png}
+  \caption{Cuadro emergente para la creación de la nómina de todos los Centros Locales a partir de los archivos \fileformat{pdf} y \fileformat{csv} descargados dese UNASEC.}
+  \label{fig:procesarlistados_NC}
+\end{figure}
+
+La ventana que se muestra en la Figura \ref{fig:procesarlistados_NC} visualiza los archivos que se encuentran disponible para cada uno de los Centros Locales. Cuando los archivos \fileformat{pdf} o \fileformat{csv} de un Centro Local se encuentran en el directorio de trabajo, verá un cuadrito relleno ($\blacksquare$) en el lugar correspondiente al lado del Centro Local respectivo. De lo contrario vera un cuadrito vacio ($\square$).  Al presionar sobre el botón ``Ejecutar'', comenzará el proceso de creación de la nómina estudiantil de todos los estudiantes a nivel nacional de los Centros Locales cuyos archivos se encuentren en el directorio de trabajo. Si no están presentes algunos de estos archivos en el directorio de trabajo, HEVASU le avisará. Este proceso tarda un tiempo y HEVASU le mostrará el progreso de la operación mediante un mensaje en la barra de estatus de la ventana principal (ver Figura \ref{fig:procesando_listados_NC}).
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{procesando_listados_NC.png}
+  \caption{Barra en la parte inferior de la ventana principal indicando el progreso de la operación. En ``modo Nivel Central'', se muestra el proceso de importación de datos para cada Centro Local sucesivamente.}
+  \label{fig:procesando_listados_NC}
+\end{figure}
+
+Como en el proceso de importación de datos de estudiantes regulares para los Centros Locales, HEVASU mostrará un mensaje de aviso si ocurre algún error en el proceso de importación de datos (ver Figura \ref{fig:aviso1}). El usuario deberá tomar nota del Centro Local en el que se produjo el error (puede consultarlo en la barra de estatus) y cuando finalice la importación de datos de todos los Centros Locales, deberá abrir el archivo \archivo{nomina\_regular00.csv}, que por cierto será bastante grande, ubicar los renglones del Centro Local en cuestión y el renglón donde se pudo producir el problema (ver Sección \ref{sec:depuracion} para una despcripción del procedimiento a seguir) y corregir el error.
+
+\section{Generación de listados de estudiantes de nuevo ingreso y reingreso}
+
+Los listados de estudiantes de nuevo ingreso, reingreso y reingreso de egresados se generan para una Unidad de Apoyo especifica o la sede del Centro Local (excluyendo las Unidades de Apoyo). Estos listados sirven como apoyo para cotejarlos con los listados de Registro y Control de Estudios en el proceso de armado de los expedientes. Se generan como archivos \fileformat{csv} que el usuario puede luego abrir en Excel u otro programa de hojas de cálculo. En el submenú de ``Archivo'' se dan las opciones para crear los listados de estudiantes regulares de nuevo ingreso, reingreso y reingreso de estudiantes regresados. Antes de crear estos listados, el usuario debe:
+
+\begin{itemize}
+	\item Haber descargado los listados correspondientes desde UNASEC tal como se describe en la sección \ref{sec:descarga_listados}.
+	\item Haber seleccionado la Oficina de Apoyo o sede para la cual se requiere generar alguno de estos listados. La Oficina de Apoyo o sede se selecciona mediante el selector correspondiente en la parte central de la ventana principal de la aplicación (ver Fig. \ref{fig:menuprincipal}).
+	\item Haber generado los archivos de la nómina de estudiantes regulares (estos son \archivo{nomina\_regularxx.RData} y \archivo{nomina\_regularxx.csv}) conforme al procedimiento descrito en la sección anterior (ver Sección \ref{sec:procesar_listados}).
+	\item Estar ubicado en el directorio de trabajo donde se encuentran los archivos de la nómina de estudiantes regulares. En caso contrario debe indicar la carpeta de trabajo correcta según se describe en la sección \ref{sec:carpeta_trabajo}.
+\end{itemize}
+
+Una vez cumplidos estos requisitos, puede seleccionar estas opciones desde el submenú de ``Archivo'', trás lo cual se abrirá un cuadro de diálogo muy similar al de la Fig. \ref{fig:procesarlistados} para pedirle la ubicación de los archivos con el listado en \fileformat{pdf}. Al escoger la ubicación de archivo correcta y hacer clic sobre ``Ejecutar'' se generará el listado requerido. Estos listados se generan en formato \fileformat{csv} y se pueden abrir desde un editor de texto plano o desde una aplicación de hoja de cálculo (eg. Excel).
+
+\section{Incorporación del cronograma de pruebas} \label{sec:cronograma}
+
+El calendario de pruebas por asignatura es un archivo \fileformat{pdf} que se envia cada lapso a los centros locales, en el cual se indican las fechas de presentación de pruebas para cada asignatura. El archivo \fileformat{pdf} con el calendario de pruebas debe ser procesado por HEVASU para incorporar las fechas de administración de pruebas en los libros de control de objetivos logrados de los asesores.  A su vez, esta información será requerida para generar los informes de planificación operativa.
+
+La opción para incorporar la información del calendario de pruebas (generar \fileformat{csv} con calendario de pruebas por asignatura) se encuentra el el submenú de ``Archivo'' (ver Fig. \ref{fig:menuarchivo}). Al seleccionar la opción correspondiente, se presentará un cuadro emergente similar al de la Fig. \ref{fig:procesarlistados} para pedirle la ruta de ubicación del archivo \fileformat{pdf} con el calendario de pruebas. Tras hacer clic sobre el botón de ``Ejecutar'', se generará el archivo \fileformat{csv} con la data del calendario de pruebas que requiere HEVASU para los propósitos mencionados. El nombre de ruta de este archivo siempre será \archivo{cronograma.csv} y se escribirá en el directorio de trabajo seleccionado por el usuario.
+
+\section{Depuración de los listados de nómina estudiantíl} \label{sec:depuracion}
+
+Si tras haber procesado los listados de la nómina estudiantíl regular o del Curso Introductorio, Ud. recibe un aviso como el de la Fig. \ref{fig:aviso1}, esto es indicativo de que debe de depurar el archivo \archivo{nomina\_regularxx.csv} o \archivo{nomina\_intro\-ductorioxx.csv}, según sea el caso. Cuando esto sucede, cerciórese de haber seleccionado los archivos correctos: el archivo \fileformat{pdf} de inscritos validados y el archivo \fileformat{csv} con la data personal de los estudiantes que se descargan de UNASEC.  Si son los archivos correctos, entonces el problema podría deberse a que los nombres de algunos estudiantes son muy largos y esto genera errores en la conversión de los archivos \fileformat{pdf} a texto plano. No es un problema muy frecuente y se puede detectar fácilmente abriendo desde Excel o LibreOffice Calc el archivo \archivo{nomina\_regularxx.csv} o \archivo{nomina\_introductorioxx.csv} según sea el caso.
+
+Por ejemplo, si en el procesamiento de los listados del curso introductorio se obtienen lineas como esta en el archivo \fileformat{csv}:
+
+\begingroup
+	\ttfamily 
+	\noindent\resizebox{\textwidth}{!}{\begin{tabular}{@{}cclccc@{}}
+		Línea & Cédula & Apellidos, Nombre & CL-UA & Carrera & \ldots\\
+		\hline
+		$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ \\
+		282 & 24799923 & HERNANDEZ ALCALA, MARYOLIS JOSE & 02 - 00 & 521 & \ldots \\
+		\rowcolor{highlightyellow}
+		283 & 24827624 & GONZáLEZ CERMEñO, YALIANNY AUXILIADORA NAZARETH 126R	& 02 - 00 &	0 &	\ldots\\
+		284 & 24827985 & GUZMAN HERNANDEZ, MARY CARMEN & 02 - 00 & 610 & \ldots \\
+		$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ \\
+		\rowcolor{highlightyellow}
+		357 & 13058384 & SACHEZ P, 281R	& 02 - 01	& 0	& \ldots\\
+		$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ \\
+		\rowcolor{highlightyellow}
+		574 & 24846426 & PIIANOWSKY PALMA, VANESSA CAROLINA DEL CARMEN 281R &	02 - 01 &	0 & \ldots\\	
+		\rowcolor{highlightyellow}
+		575 & 24846807 & PIñANGO SALAZAR, MARYIEMVHIR KASSANDRA DEL VALLE &	02 - 01 &	NA & \ldots \\
+		\rowcolor{highlightyellow}
+		576 & NA	& 000, & NA	& 02 - 01 &	\ldots\\
+		$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ \\	
+		\end{tabular}}
+\endgroup
+
+\noindent{}el aviso de error al procesar los listados se debe al contenido de las líneas resaltadas en amarillo. Para el caso de las líneas 283 y 574, los nombres y apellidos son tan largos que el campo de la carrera queda vacio mientras que el código de la carrera se quedó como parte del apellido. Este error se puede arreglar editando manualmente esas líneas en un programa de hoja de cálculo.  Para el caso de la línea 357, el error no está en la conversión del archivo \fileformat{pdf}. En este caso, la estudiante no indicó su nombre en la planilla de inscripción, haciendo que el campo de la carrera se rodáse y se anexara al apellido. El nombre de la estudiante en el renglón 575 es tan largo que los campos de datos subsecuentes se rodaron a la siguiente línea, la 576. En estos últimos casos, el error también se puede arreglar editando manualmente el archivo \fileformat{csv}.
+
+Una vez corregidos manualmente los errores en el archivo \fileformat{csv}, se deben reparar los datos seleccionando alguna de las dos últimas opciones en el submenú de ``Archivo'', según sea el archivo a reparar \archivo{nomina\_regularxx.csv} o \archivo{nomina\_\-introductorioxx.csv}. Asegúrese que los archivos \fileformat{csv} editados estén en el directorio de trabajo y haga clic sobre la respectiva acción en el submenú de ``Archivo''.
+
+Las funciones para la depuración manual de las nominas del C.I y de estudiantes regulares también sirve para incorporar manualmente la data correcta para aquellos estudiantes que no ingresaron algunos datos correctamente al momento de la inscripción: nombres y apellidos, fecha de nacimiento, correos, telefonos, etc. En versiones posteriores de HEVASU se incorporarán herramientas para detectar automáticamente potenciales problemas en estos datos.   
+
+\chapter{Asignaturas y Asesores}\label{cap:asignaturas_y_asesores}
+
+La aplicación HEVASU le permite al usuario modificar la data sobre las asignaturas ofertadas y los asesores de un Centro Local. Esta data se encuentra en los archivos \archivo{bd\_materias.RData} y \archivo{bd\_asesoresxx.RData}\footnote{El \texttt{xx} en el nombre de ruta de este archivo representa el código numérico de dos digitos del Centro Local para el cual se está usando HEVASU.}, respectivamente, dentro de la carpeta \carpeta{data} en el directorio en donde se encuentra instalado HEVASU.  En los archivos de instalación de HEVASU no encontrará el archivo de datos de asesores. Al ejecutar la aplicación por primera vez, se creará un archivo nuevo \archivo{bd\_asesoresxx.RData} en blanco. Se deberán agregar los asesores del Centro Local según el procedimiento que se indica en este capítulo. La base de datos de las asignaturas - \archivo{bd\_materias.RData} - no debería de cambiar mucho, a menos que cambien los planes de evaluación de una o más asignaturas, pero de todos modos, HEVASU incluye las herramientas para permitirle al usuario editar esta base de datos.  En ambos casos, se puede acceder a la edición de datos de los asesores o de las materias mediante el submenú ``Editar'' en la ventana principal de la aplicación (ver Fig. \ref{fig:menueditar}. En el submenú ``Editar'' también se encuentra la opción para definir el Centro Local (o el Nivel Central) para el cuál se usará la instalación de HEVASU y también para defnir nuevos lapsos académicos. De esta opción nos ocuparemos seguidamente.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{editar.png}
+  \caption{Submenú de edición de bases de datos de asignaturas y asesores.}
+  \label{fig:menueditar}
+\end{figure}
+
+\section{Definición del Centro Local y los lapsos académicos}
+
+En el submenú ``Editar'', al optar por ``Editar/seleccionar lapsos y CL'', el usuario podrá seleccionar el Centro Local en el cual se usará HEVASU o modificar la lista de lapsos académicos para efectivamente agregar nuevos lapsos académicos cuando sea necesario. Al hacerlo, aparecera una ventana emergente como la de la Figura \ref{fig:seleccion_CL}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.6\textwidth]{seleccion_CL.png}
+  \caption{Ventana para la selección del CL y la edición de la lista de lapsos académicos.}
+  \label{fig:seleccion_CL}
+\end{figure}
+
+La selección del Centro Local o del Nivel Central se realiza simplemente marcando el botón al lado de la opción deseada en la lista de Centros Locales a la derecha de la ventana. El usuario puede cambiar de Centro Local tantas veces como desee, aunque esto no será necesario pues se prevee que para la mayoría de los usos, HEVASU se usará para un sólo Centro Local especifico. Sin embargo, como en ``modo Nivel Central'' se crea una única nómina con todos los Centros Locales del país, podría ser útil cambiar a ``modo Nivel Central'' (seleccionando ``NIVEL CENTRAL'' entre las opciones de la derecha) cuando por alguna razón se desee consultar o generar la nómina nacional.
+
+En la parte izquierda de la ventana, verá la lista de lapsos académicos que se pueden seleccionar desde el control correspondiente en la ventana principal de la aplicación (Figura \ref{fig:menuprincipal}). El usuario puede agregar o eliminar lapsos pulsando los botones \includegraphics[width=2ex]{list-add.png} y \includegraphics[width=2ex]{list-remove.png} en la parte inferior de la ventana. Para agregar un lapso académico al final de la lista, escriba el lapso académico en el cuadro a la derecha del botón de agregar (\includegraphics[width=2ex]{list-add.png}) y presione ese botón. Para eliminar el último lapso académico de la lista presione el botón de eliminar (\includegraphics[width=2ex]{list-remove.png}).
+
+Para salir de esta ventana y asegurarse que los cambios hechos a la lista de lapsos o la selección del Centro Local se hagan efectivos, es importante salir mediante la opción ``Salir'' disponible en la parte superior izquierda de la ventana (ver Figura \ref{fig:seleccion_CL}). Al hacer click sobre ``Salir'' en el menú despleglable (botón \includegraphics[width=2ex]{application-exit.png}), aparecerá un cuadro de dialogo emergente similar al de la Figura \ref{fig:salir_asesores} mediante el cual podrá salir guardando los cambios o sin guardar los cambios. 
+
+\section{Edición de la base de datos de los asesores}
+
+\subsection{Personal docente de un Centro Local}
+
+Al optar por la opción ``Editar datos de asesores'' en el submenú ``Editar'', aparece un cuadro de dialogo como el de la Fig. \ref{fig:editar_asesores}.\label{sec:editar_asesores}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{editar_asesores.png}
+  \caption{Ventana para la edición de los asesores.}
+  \label{fig:editar_asesores}
+\end{figure}
+
+En esta ventana, el usuario puede seleccionar el docente (asesor(a) u orientador(a)) cuyos datos quiere editar mediante los botones de flechas en la esquina superior izquierda del cuadro (los íconos \includegraphics[width=2ex]{go-first.png}, \includegraphics[width=2ex]{go-previous-view.png}, \includegraphics[width=2ex]{go-next-view.png} y \includegraphics[width=2ex]{go-last.png}) . También puede buscar a un asesor escribiendo las primeras letras de su apellido y nombre y presionando el boton con el ícono de búsqueda (\includegraphics[width=2ex]{edit-find.png}). En los campos restantes del cuadro de diálogo de edición de asesores se muestran los datos del asesor seleccionada. En la Fig. \ref{fig:editar_asesores}, por ejemplo, se muestran mis datos como docente adscrito al Centro Local Anzoátegui. En el campo de ``Apellidos, Nombres'' aparece mi primer apellido, seguido de una coma y mi primer nombre con la inicial del segundo. Se le sugiere seguir esta convención para indicar los nombres de los docentes de su Centro Local. Al lado del campo de ``Apellidos, Nombres'' se encuentra el del ``Tipo de personal académico'' del docente. Debe seleccionar ``Asesor'', ``Orientador'' o ``Preparador'' según sea el caso. De último en esta línea se encuentra el selector del genero del docente (Masculino/Femenino).  En la siguiente línea hacia abajo del cuadro se tiene el campo de ``Sufijo para archivos''. Este campo es un sufijo que se utilizara como parte del nombre de ruta de archivo de los distintos reportes o listados de Excel que produce HEVASU. En mi caso, al solicitar que sea generado mi libro de cálculo de control de objetivos logrados o mi libro de cálculo para registrar las asesorías para el lapso 2013-2, estos serán nombrados como \archivo{OL\_joseromero\_2013-2.xls} y \archivo{asesoria\_joseromero\_2013-2.xls} respectivamente. El archivo de reporte de actividades también tendrá este sufijo; en mi caso, para este semestre, el archivo de reporte de actividades sería \archivo{actividades\_joseromero\_2013-2.doc} (podrá escoger el reporte de actividades en otros formatos distintos a Microsoft Word). El siguiente campo es el del área academica que asesoro: en mi caso es el área de matemáticas.  Y por último en este renglón, la Oficina de Apoyo o sede a la cual estoy adscrito, que en mi caso es la 02-01 (Oficina de Apoyo El Tigre, Centro Local Anzoátegui).  Todos estos datos son editables para reflejar la información de cada docente.
+
+En la parte inferior del cuadro de diálogo de edición de asesores (Fig. \ref{fig:editar_asesores}) se encuentra una lista desplegable para reflejar las materias que asesoro y las sedes de los estudiantes cuyas evaluaciones corrijo para esas materias. Al lado de cada código de asignatura, los ceros y unos indican cuales sedes del Centro Local asesoro para esa asignatura. Un cero (0) indica que no asesoro los estudiantes de la respectiva asignatura y sede; un uno (1) indica que sí. Así por ejemplo, de entre las materias que se pueden visualizar en la Fig. \ref{fig:editar_asesores}, yo asesoro la 178, 179 y la 733 a nivel de El Tigre solamente (02-01), la 738 a nivel de El Tigre (02-01) y Anaco (02-03), y la 737 y  745 a nivel de todas las sedes del Centro Local Anzoátegui. En la parte derecha de este recuadro hay una barra de desplazamiento para desplazarse hacia las otras materias del docente.  Si desea agregar o elminiar materias, pulse los botones \includegraphics[width=2ex]{list-add.png} y \includegraphics[width=2ex]{list-remove.png} en la parte inferior del recuadro de materias. Este último boton eliminará la última asignatura de la lista y no la correspondiente al renglón que esté resaltado en el recuadro de asignaturas. Para agregar asignaturas a un asesor, debe escribir el código numérico de la asignatura en el campo a la izquierda del botón \includegraphics[width=2ex]{list-add.png}. 
+
+Los otros controles en el cuadro de diálogo de edición de la data de asesores permiten agregar un nuevo docente a la base de datos mediante el botón \includegraphics[width=2ex]{document-new.png}, el cuál agrega un docente con los nombres y apellidos indicados en el campo a la izquierda de ese botón. El botón de eliminar (\includegraphics[width=2ex]{edit-delete.png}), por el contrario, elimina el docente seleccionado actualmente. Por último, los botones \includegraphics[width=2ex]{document-save.png} y \includegraphics[width=2ex]{application-exit.png} guardarán los cambios a la base de datos o saldrán del cuadro de edición, respectivamente.
+
+Al salir, aparecerá un cuadro de diálogo emergente como el de la Figura \ref{fig:salir_asesores} para preguntarle si desea salir sin guardar los cambios, guardar los cambios y salir o cancelar la salida de la ventana de edición de los asesores.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{salir_asesores.png}
+  \caption{Cuadro de diálogo emergente para salir de la edición de asesores.}
+  \label{fig:salir_asesores}
+\end{figure}
+
+\subsection{Asesores del Nivel Central}
+
+Al optar por la opción ``Editar datos de asesores'' en el submenú ``Editar'', aparece un cuadro de dialogo como el de la Fig. \ref{fig:editar_asesores_NC}.\label{sec:editar_asesores_NC}
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{editar_asesores_NC.png}
+  \caption{Ventana para la edición de los asesores del Nivel Central.}
+  \label{fig:editar_asesores_NC}
+\end{figure}
+
+En esta ventana, el usuario puede seleccionar el asesor cuyos datos quiere editar mediante los botones de flechas en la esquina superior izquierda del cuadro (los íconos \includegraphics[width=2ex]{go-first.png}, \includegraphics[width=2ex]{go-previous-view.png}, \includegraphics[width=2ex]{go-next-view.png} y \includegraphics[width=2ex]{go-last.png}) . También puede buscar a un asesor escribiendo las primeras letras de su apellido y nombre y presionando el boton con el ícono de búsqueda (\includegraphics[width=2ex]{edit-find.png}). En los campos restantes del cuadro de diálogo de edición de asesores se muestran los datos del asesor seleccionada. En la Fig. \ref{fig:editar_asesores_NC}, por ejemplo, se muestran los datos de un asesor ficticio del Área de Matemáticas en Nivel Central. Para crear un nuevo asesor, escriba sus Apellidos seguidos de una coma y los nombres en el cuadro de texto al lado de ``Crear Nuevo'' y seguidamente pulse el boton \includegraphics[width=2ex]{document-new.png}. Apareceran los apellidos y nombres del asesor recien creado en el cuadro de abajo, seguido de unos botones de selección del genero (masculino o femenino) del nuevo asesor. En la siguiente línea hacia abajo del cuadro se tiene el campo de ``Sufijo para archivos''. El texto de este campo es un sufijo que se utilizara como parte del nombre de los distintos reportes o listados de Excel que produce HEVASU. En el  caso de Pedro Perez, al solicitar que sea generado el libro de cálculo de control de objetivos logrados o el libro de cálculo para registrar las asesorías durante el lapso 2013-2, estos serán nombrados como \archivo{OL\_pedroperez\_2013-2.xls} y \archivo{asesoria\_pedroperez\_2013-2.xls} respectivamente, pero el usuario puede modificar este sufijo . El archivo de reporte de actividades también tendrá este sufijo; en el caso del ejemplo, para este semestre, el archivo de reporte de actividades en formato Word sería \archivo{actividades\_pedroperez\_2013-2.doc}. El siguiente campo es el del área academica del asesor, que para Pedro Perez sería el área de matemáticas. Seguidamente en el mismo renglón hay un cuadro con una lista de todas las carreras ofertadas en la UNA en el cual se podrá seleccionar las carreras que el docente en cuestión asesora (para el ejemplo de Pedro Perez, están marcadas las carreras 126 y 508). Este campo se incluye para los asesores de Nivel Central y no para los de los Centros Locales porque los asesores de Nivel Central asesoran materias de carreras específicas y no atienden estudiantes de otras carreras. El reducir el universo de estudiantes que un docente asesora ayuda a reducir la nómina estudiantíl incluida en el libro de cálculo de asesoría, que potencialmente es muy grande, ya que abarca todos los estudiantes de todos los Centros Locales. 
+
+En la parte inferior del cuadro de diálogo de edición de asesores (Fig. \ref{fig:editar_asesores_NC}) se encuentra una lista desplegable para reflejar las materias que el docente asesora y los Centros Locales de los estudiantes cuyas evaluaciones corrije para esas materias. En el ejemplo de Pedro Perez, él sólo asesora la 760 (Historia de la Matemática) en todo el país. Al lado de cada código de asignatura, los ceros y unos indican cuales Centros Locales se asesoran para esa asignatura. Un cero (0) indica que el docente no asesora a los estudiantes del respectivo Centro Local y un  uno (1) indica que sí. Si desea agregar o elminiar materias, pulse los botones \includegraphics[width=2ex]{list-add.png} y \includegraphics[width=2ex]{list-remove.png} en la parte inferior del recuadro de materias. Este último boton eliminará la última asignatura de la lista y no la correspondiente al renglón que esté resaltado en el recuadro de asignaturas. Para agregar asignaturas a un asesor, debe escribir el código numérico de la asignatura en el campo a la izquierda del botón \includegraphics[width=2ex]{list-add.png}. 
+
+Los otros controles en el cuadro de diálogo de edición de la data de asesores permiten agregar un nuevo docente a la base de datos mediante el botón \includegraphics[width=2ex]{document-new.png}, cómo ya se explicó anteriormente. El botón de eliminar (\includegraphics[width=2ex]{edit-delete.png}), por el contrario, elimina el docente seleccionado actualmente. Por último, los botones \includegraphics[width=2ex]{document-save.png} y \includegraphics[width=2ex]{application-exit.png} guardarán los cambios a la base de datos o saldrán del cuadro de edición, respectivamente.
+
+Al salir, aparecerá un cuadro de diálogo emergente como el de la Figura \ref{fig:salir_asesores} para preguntarle si desea salir sin guardar los cambios, guardar los cambios y salir o cancelar la salida de la ventana de edición de los asesores.
+
+\section{Edición de la base de datos de las asignaturas}
+
+El cuadro de diálogo para la edición de la base de datos de las asignaturas (ver Fig. \ref{fig:editar_materias}) es muy similar a aquel para los datos de los asesores. Se puede navegar a través de las distintas asignaturas (organizadas en orden ascendente, según su código) mediante los botones \includegraphics[width=2ex]{go-first.png}, \includegraphics[width=2ex]{go-previous-view.png}, \includegraphics[width=2ex]{go-next-view.png} y \includegraphics[width=2ex]{go-last.png}. Si desea mover el cursor a una asignatura en específico, puede buscarla escribiendo su código numérico en el recuadro al lado del botón de búsqueda (\includegraphics[width=2ex]{edit-find.png}) y luego pulsar dicho botón. También puede crear una nueva asignatura escribiendo el código nuevo en el recuadro anexo al botón \includegraphics[width=2ex]{document-new.png} y pulsando sobre este o eliminar la asignatura indicada pulsando el botón \includegraphics[width=2ex]{edit-delete.png}.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{editar_materias.png}
+  \caption{Ventana para la la edición de las asignaturas.}
+  \label{fig:editar_materias}
+\end{figure}
+
+En la parte central del cuadro de diálogo de edición de asignaturas se tiene la información básica de cada asignatura: su código, el nombre, las unidades de crédito y el criterio de dominio. Este último es la cantidad de puntos-objetivos necesarios para aprobar la materia, respecto al total de objetivos ponderados que contempla el plan de evaluación. El criterio de dominio es utilizado al momento de generar los libros de cálculo con las materias evaluadas por un asesor: al ir el asesor indicando los objetivos aprobados para cada estudiante en cada materia, el total de puntos-objetivos logrados será rojo si este es inferior al criterio de dominio y azul en caso contrario.
+
+En el recuadro de la parte inferior izquierda del cuadro de diálogo se indican los objetivos evaluables para cada materia. Mediante los botones \includegraphics[width=2ex]{list-add.png} y \includegraphics[width=2ex]{list-remove.png} se agregan o se eliminan objetivos. Para cada objetivo se indica su ponderación (con valor de 1 por defecto) y si este es evaluado por el asesor (indique ``1'') o mediante pruebas objetivas indique ``0'').
+
+En el recuadro de la parte inferior derecha se indican los instrumentos de evaluación que son corregidos por el asesor. Estos pueden ser pruebas parciales (1P, 2P o 3P), integrales (1Int, 2Int, 3Int, 4Int o Int), o bien trabajos prácticos.  Si una prueba es mixta y contiene algunos objetivos evaluados por el asesor, deberá incluirse en este recuadro. Las pruebas objetivas, que son corregidas en su totalidad por la máquina lectora no deben incluirse en esta lista de instrumentos de evaluación de la asignatura.  De este modo, dicha lista no necesariamente contiene todos los instrumentos de evaluación de una asignatura contemplados en su plan de evaluación, sino solamente aquellos que son corregidos por los asesores.  La finalidad de esto es incluir celdas para la colocación de las fechas en que dichos instrumentos son corregidos por el asesor en el libro de evaluación, lo cual a su vez será tomado en cuenta para la generación de los reportes de actividad (pruebas y trabajos practicos corregidos por el asesor en un rango de fechas).  Se considerarán como pruebas los instrumentos de evaluación indicados como 1P, 2P, 3P, Int, 1Int, 2Int, 3Int o 4Int; los demás instrumentos de evaluación son considerados como trabajos prácticos. Como en los otros recuadros de este tipo, el usuario puede agregar o eliminar instrumentos de evaluación mediante los botones \includegraphics[width=2ex]{list-add.png} y \includegraphics[width=2ex]{list-remove.png}. Al lado del botón para agregar se encuentra un selector con lista desplegable para el tipo de evaluación a agregar.
+
+A modo de ejemplo, en la Fig. \ref{fig:editar_materias} se tiene la información de la asignatura 738 - Inferencia Estadística. Según el plan de evaluación, esta materia contempla en total 10 objetivos ponderados para un total de 22 puntos-objetivos. La 738 se aprueba con un mínimo de 17 puntos-objetivos, tal como se indica en el recuadro de ``Criterio de Dominio''. Según el plan de evaluación vigente en el 2014-1, la 738 contempla 4 momentos de prueba (tres parciales y una integral- todas de desarrollo). En total son 4 instrumentos de evaluación que el asesor debe corregir para esta materia.
+
+En la carpeta \carpeta{data} de la instalación de HEVASU se encuentra un archivo de texto denominado \archivo{tipo\_evaluacion}\label{sec:editar_materias} cuyas líneas se corresponden a los distintos tipos de instrumentos de evaluación que se visualizan en la lista desplegable en el selector a la derecha del botón \includegraphics[width=2ex]{list-add.png}. Este archivo se puede modificar mediante un editor de texto para incluir otros tipos de instrumentos de evaluación en caso de ser necesario.
+
+\chapter{Generación de los libros de evaluación y asesoría}\label{cap:generar_xls}
+
+El siguiente submenú en la ventana principal de la aplicación es aquel titulado ``Generar xls'' (ver Fig. \ref{fig:generar_xls}). En este submenú se da la opción para generar el libro de evaluación (objetivos logrados) de las materias que corrige el asesor y la opción para generar el libro de asesorías, en el cual el asesor vierte toda la data sobre las asesorías brindadas a los estudiantes a lo largo del semestre y los talleres dictados. En el caso de los orientadores, este último libro incluye una hoja para vaciar la información sobre los servicios de orientación (tramite de becas, ayudantías, cambios de datos académicos o personales, etc.) que gestiona el orientador a lo largo del semestre. Ambos libros - el de asesoría y el de evaluación - son los productos principales de HEVASU. A partir de estos se genera el informe de actividades y el informe de planificación operativ para cada docente (asesor, orientador o preparador). En el caso de los orientadores, a partir del libro de evaluación se generarán los certificados de aprobación del Curso Introductorio. En versiones futuras de HEVASU, cuando se incorporen algunos cuadros de análisis estadístico, la aplicación tomará la data para estos análisis a partir de los archivos de asesoría y evaluación. Previo a la generación de estos libros, el usuario debe indicar el o los docentes y el lapso académico para el cual se quieren generar aquellos en los campos de selección correspondientes del menú principal de la aplicación (ver página \pageref{sec:selectores_principales}).
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{generar_xls.png}
+  \caption{Submenú para la generación de los libros de cálculo del docente.}
+  \label{fig:generar_xls}
+\end{figure}
+
+\section{El libro de evaluación}
+
+Tras generar el libro Excel de evaluación mediante la opción correspondiente en el submenú ``Generar xls'', se creará un archivo Excel cuyo nombre de ruta comenzará en ``\texttt{OL\_}'', seguido del sufijo de nombre de archivo del docente (ver sección \ref{sec:editar_asesores} de este manual), el lapso académico y la extensión ``\texttt{.xls}''.  Esta operación tarda cierto tiempo, así que debe ser paciente\footnote{El tiempo depende de la cantidad de materias y la matricula que asesora el docente. Se indicará el progreso de la operación en la barra de estatus en la parte inferior de la ventana principal.}.
+
+El libro de evaluación contendrá una hoja por cada materia asesorada en el caso de los asesores. En el caso de los orientadores, este libro constará de una sola hoja, que es la del Curso Introductorio (para efectos de HEVASU, el Curso Introductorio se considera como una asignatura). En la Figura \ref{fig:libro_evaluacion} se muestra un ejemplo del libro de evaluación. HEVASU crea estos libros de forma automatizada, incluyendo la nomina de cada materia que asesora un docente y espacio para que el asesor pueda rellenar la data sobre el logro de cada objetivo evaluable para cada estudiante. Si el usuario ha procesado el cronograma de pruebas (ver página \pageref{sec:cronograma}), HEVASU escribirá en el espacio correspondiente las fechas de administración de cada prueba en las hojas de este libro.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{libro_evaluacion.png}
+  \caption{Ejemplo de un libro de evaluación generado por HEVASU.}
+  \label{fig:libro_evaluacion}
+\end{figure}
+
+Cuando abre el libro de evaluación, encontrará en la parte inferior izquierda de la ventana de Excel las pestañas de selección de las asignaturas asesoradas. Cada asignatura tiene su hoja en este libro y su nombre es el código numérico de asignatura. En el encabezado de las hojas se incluye la información principal de la asignatura (nombre, créditos, criterio de dominio), así como también del asesor (nombre y CL-UA a la cual está adscrito). Adicionalmente, se indica el lapso académico en cuestión y la fecha en la cual fue generado el libro de evaluación.  Debajo de este encabezado se incluye la nomina de la materia para el asesor.
+
+Las columnas a la izquierda de una hoja de asignatura en el libro de evaluación contienen las cédulas, nombres y apellidos, carrera y CL-UA de cada estudiante en la nomina de una asignatura. Seguidamente, las columnas rotuladas por números contienen la información sobre el logro de los objetivos que el asesor vierte en el transcurso del lapso académico. En cada una de las celdas en esta región de la hoja, el asesor indicará mediante un 1 o un 0 el logro o no logro del objetivo respectivo para cada estudiante correspondiente. En caso en que el estudiante no respondió el item en el examen (o no entregó el trabajo práctico si el objetivo es evaluado mediante un trabajo), se deja la celda correspondiente en blanco (no se coloca 0 o 1).  Debajo del número de cada objetivo en las celdas de encabezado de estas columnas, HEVASU colocará la ponderación de cada objetivo.  El total de puntos/objetivos logrados para cada estudiante es calculado automáticamente mediante una fórmula de Excel. La suma en la celda correspondiente al total de puntos/objetivos logrados para cada estudiante se indicará en rojo cuando el estudiante no alcanza los puntos indicados en el criterio de dominio, en caso contrario, este valor se indicará automáticamente en negro.
+
+Las últimas columnas contienen las fechas relativas al proceso de administración y corrección de las evaluaciones de una asignatura. Cada columna se corresponde a una evaluación. En las celdas de encabezado, HEVASU coloca el tipo de evaluación, indicando si es una prueba parcial, una prueba integral o un trabajo práctico (leer sobre los tipos de evaluación al final de la Sección \ref{sec:editar_materias}). Encima de estas celdas, HEVASU colocará las fechas de administración de aquellas evaluaciones que sean pruebas, siempre y cuando el usuario haya procesado previamente el archivo del calendario de pruebas que se elabora por Nivel Central cada semestre.  Debido a que las fechas de entrega de los trabajos prácticos no figuran en el calendario de pruebas, cada asesor debe rellenar estas celdas con las fechas de entrega.  En caso de no haber procesado el calendario de pruebas previamente (el archivo cronograma.csv está ausente en la carpeta de trabajo) o se han reprogramado las fechas de administración de pruebas, el docente deberá actualizar estas celdas para reflejar las fechas reales de administración de pruebas.  Esta información será usada por HEVASU para la elaboración de los informes de planificación.  Debajo de estas celdas de encabezado, el docente deberá indicar la fecha en la cual corrige la prueba de cada estudiante. Si un estudiante no presenta una prueba, el asesor dejará la celda correspondiente en blanco. Las pruebas presentadas por los transeúntes, por ejemplo, tendrán una fecha de corrección posterior al resto de las pruebas.  En todo caso, por cada prueba corregida, la celda correspondiente no estará en blanco y HEVASU podrá detectar que hubo una prueba corregida en esa fecha. Esta información se utilizará para generar los reportes de actividades y los informes de planificación operativa.
+
+\section{El libro de asesoría}
+
+El libro de asesoría es un archivo Excel cuyo nombre de ruta comienza por ``\texttt{asesoria\_}'' seguido del sufijo de nombre de archivo del docente, el lapso académico y la extensión ``\texttt{.xls}''. Este libro contiene por lo menos cuatro hojas: ``\texttt{Nomina de estudiantes}'', que consta de una tabla con los datos de todos los estudiantes regulares y los inscritos en el Curso Introductorio para ese lapso, ``\texttt{Asesorías}'' (Fig. \ref{fig:hoja_asesoria}), que es la hoja donde el docente vacía los datos de sus asesorías a lo largo del semestre, ``\texttt{Talleres}'' (Fig. \ref{fig:hoja_talleres}), que es la hoja donde el docente indica los talleres dictados a lo largo del lapso académico y una hoja titulada ``\texttt{Tipo de asesoría}'' en la cual se indican los códigos y las descripciones respectivas de los tipos de asesoría. En el caso exclusivo de los orientadores, el libro de asesoría tendrá una hoja adicional - ``\texttt{Servicios de Orientación}''- que es muy similar a la hoja ``\texttt{Asesorías}'' y en la cual los orientadores verterán toda la información sobre los servicios de orientación que realizan a lo largo del semestre. Todos los docentes de la UNA (asesores, orientadores y preparadores) realizan tareas de asesoría académica pero solo los asesores y orientadores realizan tareas de evaluación académica.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{hoja_asesoria.png}
+  \caption{La hoja de asesoría de un libro de asesoría.}
+  \label{fig:hoja_asesoria}
+\end{figure}
+
+Las hojas con la nómina de estudiantes y la especificación de los tipos de asesoría y/o servicios de orientación son nada más para fines de consulta. La hoja de asesoría, la hoja de talleres y la hoja de servicios de orientación, en el caso de los orientadores, son las que han de ser llenadas por el docente.  Inicialmente, cuando HEVASU crea el libro de asesoría, esta hoja esta en blanco con sólo la fila 6 indicando el renglón ``0001'' (ver Fig. \ref{fig:hoja_asesoria_en_blanco}). Algunas celdas en esa fila contendrán ``\texttt{\#N/D}'' en letras grises e itálicas. Estas celdas contienen fórmulas que buscarán los datos respectivos del estudiante asesorado\footnote{Los datos del estudiante se buscan en la tabla contenida en la hoja de ``\texttt{Nomina de estudiantes}'' a partir del número de cédula que el usuario indique en la celda respectiva de la columna B.} una vez que el usuario ingrese el número de cédula en la columna B. El usuario también deberá indicar el código de asignatura (columna F), la fecha de la asesoría (columna G) y el tipo de asesoría (columna H).  Los datos que el usuario debe ingresar son señalados por letras azules en los respectivos campos (ver Fig. \ref{fig:hoja_asesoria}); los demás datos (en letras grises) se llenan automáticamente por el programa de libro de cálculo mediante formulas.    
+
+\begin{figure}[!hb]
+  \centering
+  \includegraphics[width=1\textwidth]{hoja_asesoria_en_blanco.png}
+  \caption{La hoja de asesoría de un libro de asesoría recien creado.}
+  \label{fig:hoja_asesoria_en_blanco}
+\end{figure}
+
+El tipo de asesoría (columna H) será indicado por un caracter que representa en código el tipo de asesoría dada (\texttt{T} indica que el estudiante asistió a un taller, \texttt{I} indica una asesoría individual, \texttt{\@} indica una asesoría en línea y así sucesivamente)\footnote{Los talleres se diferencian de las asesorías grupales en que los primeros son planificados mientras que la asesoría grupal no. Las asesorías en línea se dan cuando el docente responde al estudiante por correo electrónico, mensajes en blogs o foros o comunicación en chat/Skype, etc.}.  Para su referencia, los tipos de asesorías junto con sus códigos de producto para efectos de la planificación operativa de la UNA aparecen en la hoja ``\texttt{Tipos de Asesoría}''. Cuando el usuario hace clic sobre una celda de tipo de asesoría, aparecerá un cuadro de selección desplegable como en la Fig. \ref{fig:tipo_asesoria}. Esto es para facilitar el ingreso de este campo, pero el usuario también puede ingresar el código de caracter directamente. El campo de \texttt{Edad} se calcula automáticamente una vez que el usuario indica la cédula del estudiante y la fecha de asesoría. Este campo contendrá la edad al momento de la asesoría (calculada según la fecha de nacimiento del estudiante en la tabla de datos con la nómina estudiantil y según la fecha de la asesoría en la columna G). Finalmente, el campo de \texttt{Observaciones} (columna K) es libre- el usuario puede indicar en él cualquier otra información que considere pertinente.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.3\textwidth]{tipo_asesoria.png}
+  \caption{Cuadro desplegable para ingresar el tipo de asesoría.}
+  \label{fig:tipo_asesoria}
+\end{figure}
+
+Antes de comenzar a rellenar los datos de asesoría en esta hoja, el usuario debe hacer copias en blanco de la primera fila (la fila 6). Esto se hace resaltando el conjunto de celdas en esta fila, tecleando \framebox{\texttt{CTRL}}\texttt{-}\framebox{\texttt{C}}, resaltando las celdas hacia donde se quiere copiar el contenido y presionando \framebox{\texttt{CTRL}}\texttt{-}\framebox{\texttt{V}}, según el procedimiento de copiar y pegar que se utiliza comúnmente en cualquier aplicación de ofimática. Se copiará hacia abajo las celdas de la primera fila tantas veces como sea necesario a fin que para cada asesoría indicada, las celdas del renglón correspondiente contengan las fórmulas para recuperar los datos del estudiante a partir del número de cédula que indique el docente.  Cuando el libro de asesoría sea procesado para generar los otros reportes que genera HEVASU, deberán eliminarse previamente aquellas celdas en la parte inferior de la hoja de asesoría que contengan sólo las fórmulas pero que estén en blanco.
+
+En el llenado de la hoja de asesoría se pueden presentar algunos problemas. Si el usuario indica un número de cédula pero las celdas con los campos del nombre y el CL-UA del estudiante siguen mostrando ``\texttt{\#N/D}'', esto es indicativo que el número de cédula ingresado no aparece en la nómina de estudiantes. Esto podría deberse a que el número de cédula fue mal copiado en la hoja de papel donde los estudiantes firman las asesorías, por ejemplo.  En este caso, para obtener el número de cédula correcto el docente puede abrir la hoja ``\texttt{Nomina de estudiantes}'' y encontrar el número de cédula correcto buscando el nombre del estudiante en el campo de ``\texttt{Apellidos, Nombres}''.  Esto se realiza también mediante el procedimiento estándar de búsqueda (desde el menú de \texttt{Editar}) utilizado en cualquier aplicación de ofimática.  Otra posibilidad es que el estudiante asesorado no aparece en la nómina de estudiantes porque no es del mismo Centro Local de adscripción del docente. En este caso, el docente debe buscar los datos del estudiante en otras fuentes, como por ejemplo en los mismos listados de UNASEC de estudiantes inscritos en el otro Centro Local o el listado de estudiantes inscritos en la materia asesorada.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=1\textwidth]{hoja_talleres.png}
+  \caption{La hoja de talleres en el libro de asesorías.}
+  \label{fig:hoja_talleres}
+\end{figure}
+
+El llenado de la hoja de Talleres (ver Figura \ref{fig:hoja_talleres}) es más sencillo. Copie las formulas y los formatos de las primeras 4 celdas de la fila 6 hacia abajo según la cantidad de talleres que va a indicar y según el procedimiento descrito anteriormente para la hoja de Asesorías. Luego, en cada fila indique la información sobre cada taller. En la columna encabezada por ``Fecha'', coloque la fecha del taller de la forma usual (día/més/año). Luego, en la columna encabezada por ``Asignatura'' coloque el código numérico de la asignatura a tratar en el taller. Para el caso de materias como Introducción a la Probabilidad, que comprende dos códigos 737 y 747, debe indicar un código por fila comó si se tratáse de dos talleres en la misma fecha, pués aún cuando la 737 y la 747 son la misma materia, se atienden estudiantes de distintas carreras y esto incide sobre la contabilización de las actividades en el plan operativo. Finalmente, en la columna debajo de ``Contenido'', el usuario puede indicar cualquier otra información complementaria sobre el taller, como por ejemplo la hora, lo objetivos que se tratarán, etc.
+
+Todo lo expuesto arriba sobre la hoja de asesoría es aplicable a la hoja de servicios de orientación (ver Fig. \ref{fig:hoja_orientacion}) incluida en el libro de asesoría de los orientadores.  Los servicios de orientación que realizan los orientadores son los siguientes: acta de verificación de datos (AVD), ayudantías (AYU), tramitación de becas (BEC), cambios de carrera (CCA), cambios de Centro Local (CCL), equivalencias (EQU), FAMES (FAM) y preparadurías (PRP). Los códigos de estos servicios se envuentran en la hoja ``\texttt{Tipos}'', al igual que los códigos de los tipos de asesorías. Estos son los códigos que se ingresan en la colúmna F de la hoja ``\texttt{Servicios de Orientación}''. Al igual que para el caso de los tipos de asesoría, se desplegará un cuadro con estos códigos si el usuario desea seleccionarlos desde una lista. Análogo a la hoja de asesorías, en la hoja de servicios de orientación el usuario especifica la cédula del estudiante en la columna B y la fecha en la columna E. Los demás datos personales del estudiante atendido se buscan desde la tabla en la nómina de estudiantes del Centro Local a partir del número de cédula indicado en la respectiva celda. 
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{hoja_orientacion.png}
+  \caption{La hoja de los servicios de orientación.}
+  \label{fig:hoja_orientacion}
+\end{figure}
+
+\chapter{Informes, reportes y certificados}\label{cap:generar_reportes}
+
+La generación de los informes de actividades, los reportes de planificación operativa y los certificados del curso introductorio están entre las funcionalidades más destacadas que realiza la aplicación HEVASU.  Dichas tareas se realizan desde el submenú ``Reportes y Certificados'', cuyo despliegue se muestra en la Figura \ref{fig:reportes_y_certificados}.  Desde este submenú se selecciona la generación de cualquiera de los tres productos mencionados arriba, los cuales se exponen seguidamente.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=\textwidth]{reportes_y_certificados.png}
+  \caption{Submenú de Reportes y Certificados.}
+  \label{fig:reportes_y_certificados}
+\end{figure}
+
+\section{El informe de actividades}
+
+A partir del libro de asesorías y del libro de evaluación (sólamente para asesores y orientadores) de un lapso académico específico se genera el Informe de Actividades del respectivo docente.  La información contenida en este informe se organiza en tablas numeradas, que varían según el tipo de docente - asesor, orientador o preparador - como se muestra en el Cuadro \ref{tab:reporte_actividades}. 
+
+\vspace{2ex}
+\begin{table}[!ht]
+	\centering
+	\begin{tabular}{|p{30ex}|p{30ex}|}
+		\hline
+		\cellcolor{navy}{\makebox[30ex][c]{\textcolor{white}{Asesores}}} & \cellcolor{charcoal}\makebox[30ex][c]{\textcolor{white}{Orientadores}}\\
+		\hline
+		\multirow{3}{*}{\parbox[t]{27ex}{
+			\begin{enumerate}[label=\protect\fcolorbox{navy}{navy}{\textcolor{white}{\theenumi}}]
+				\item Matricula atendida para las asignaturas de una sola UA-CL
+				\item Matricula atendida para las asignaturas de varias UA-CL
+				\item Pruebas corregidas
+				\item Trabajos corregidos
+				\item Talleres dictados
+				\item Tipos de asesorías
+				\item Asesorías por asignatura, carrera y tipo
+				\item Asesorías por tipo y por carrera
+				\item Alcance geográfico de asesorías
+		  \end{enumerate}
+		}} & \parbox[t]{27ex}{
+			\begin{enumerate}[label=\protect\fcolorbox{charcoal}{charcoal}{\textcolor{white}{\theenumi}}]
+				\itemsep0em
+				\item Matricula atendida por carrera
+				\item Trabajos corregidos
+				\item Talleres dictados
+				\item Tipos de asesoría y servicios de orientación
+				\item Asesorías por tipo y por carrera
+				\item Servicios de Orientación por carrera
+			\end{enumerate}} \\
+		\cline{2-2}
+		&	\cellcolor{uclablue}{\makebox[30ex][c]{\textcolor{white}{Preparadores}}} \\
+		\cline{2-2}
+		&	\parbox[t]{27ex}{\begin{enumerate}[label=\protect\fcolorbox{uclablue}{uclablue}{\textcolor{white}{\theenumi}}]
+				\itemsep0em
+				\item Talleres dictados
+				\item Tipos de asesorías
+				\item Asesorías por asignatura, carrera y tipo
+				\item Asesorías por tipo y por carrera
+			\end{enumerate}}\\
+		\hline
+	\end{tabular}
+	\caption{Información contenida en el reporte de actividades}
+	\label{tab:reporte_actividades}
+\end{table}
+
+\newpage
+La información refleajda en las tablas del reporte de actividades es cuantitativa y se refiere a las cantitades de las respectivas actividades indicadas en cada tabla realizadas por un determinado docente, en un rango de fechas indicado por el usuario. Por ejemplo, en la página 11 de mi reporte de actividades para desde el 1/4/14 hasta el 31/7/14 se indican las asesorías dadas por tipo, materia y carrera en ese rango de fechas, como se puede obervar en la Figura \ref{fig:reporte_actividades_pdf}. Cuando en el rango de fechas indicado por el usuario no hubo asesorías, talleres, o corrección de pruebas y/o trabajos, las tablas respectivas estarán ausentes en el informe.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[page=11,width=1\textwidth]{actividades.pdf}
+	\caption{Una página del reporte de actividades}
+	\label{fig:reporte_actividades_pdf}
+\end{figure}
+
+Para crear el reporte de actividades de uno o más docentes durante un lapso académico determinado, seleccione los docentes en el cuadro de selección de docentes de la ventana principal y el lapso académico deseado en el selector de lapso académico. Al seleccionar la opción ``Generar reporte de actividades'' desde el submenú de ``Reportes y Certificados'', se abrirá un cuadro emergente como el de la Figura \ref{fig:menu_reporte_actividades}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.6\textwidth]{menu_reporte_actividades.png}
+	\caption{Cuadro emergente con las opciones de la generación de los reportes de actividades}
+	\label{fig:menu_reporte_actividades}
+\end{figure}
+
+En este cuadro emergente, debe indicar la fecha de inicio y la fecha final del rango de fechas con el cual se generará el o los reportes de actividades (en caso que haya seleccionado dos o más docentes). También debe indicar en cual o cuales formatos desea generar los reportes marcando las opciones respectivas en la parte inferior del cuadro. Puede escoger entre el formato \fileformat{pdf}, el formato \fileformat{odt} de LibreOffice o el formato \fileformat{doc} de Microsoft Office 2003. En la parte central del cuadro verá la lista de los docentes seleccionados desde la ventana principal de la aplicación. Al lado de cada docente verá un circulo relleno verde o rojo. El circulo verde significa que están presentes todos los archivos necesarios para producir el reporte de actividades de ese docente en ese lapso académico. El círculo rojo indica lo contrario. Para cada asesor y orientador, se requiere el libro \fileformat{xls} de evaluación y el libro \fileformat{xls} de asesorías del lapso seleccionado. Para los preparadores sólo se requiere el libro de asesorías, ya que los preparadores no corrigen evaluaciones. Si todo está en orden, al presionar el botón de ``Ejecutar'', comenzará el proceso de generación de los reportes. Podrá ver el desarrollo de la operación leyendo los mensajes en texto verde que se irán visualizando en la barra de estatus de la ventana principal.  
+
+La generación de reportes de actividades tarda algún tiempo, dependiendo de la cantidad de docentes seleccionados y el volúmen de actividades o matricula atendida de cada uno, así que debe ser paciente. Sin embargo, si por alguna razón el proceso se para en alguna parte y no avanza trás esperar por varios minutos, es porque seguro hubo un error en la lectura del archivo \fileformat{xls} y la hoja indicada en la barra de estatus. Si esto sucede, cierre el cuadro emergente de generación de reportes y abra el archivo \fileformat{xls} para inspeccionarlo y buscar el error. Antes que nada, debe revisar si los archivos \fileformat{xls} son libros de evaluación o de asesoría válidos, tal como los genera la aplicación HEVASU. El formato y la disposición del contenido de estos libros no puede cambiar libremente- están diseñados para ser llenados por el usuario tal como se explica en el Capitulo \ref{cap:generar_xls}. Debe revisar que en los cuadros en donde se colocan las fechas debe haber fechas válidas y no por ejemplo ``14/7//14'' (hay un / sobrante). Si es una hoja en un libro de evaluación, revise también que no haya contenido más alla de la fila del último estudiante en la nómina de una materia. En el caso de las asesorías, cerciórese que todos los campos esenciales de cada renglón estén llenos: la cédula, la fecha de la asesoría, la carrera del estudiante y el código de asignatura. Si por el contrario la marcha del proceso ha sido satisfactoria, se cerrará automáticamente el cuadro emergente de la Figura \ref{fig:menu_reporte_actividades} y tendrá los reportes generados en el directorio de trabajo.
+
+\section{El informe de planificación}
+
+El informe de planificación que genera HEVASU sirve para ayudar en el proceso de rendición trimestral del Plan Operativo. El Plan Operativo de la Universidad Nacional Abierta contempla la cuantificación del logro de las metas de la institución en un periodo anual. Las metas cuantificables se han organizado como Productos en Proyectos y Áreas de Acción, entre los cuales figuran la evaluación académica (corrección de pruebas y trabajos) y la administración de los procesos de instrucción (asesorías) para cada una de las carreras ofertadas en la UNA. La recolección manual de estos datos es demasiado laboriosa y propensa a errores en su tabulación. HEVASU facilita enormemente esta tarea porque los datos esenciales para la cuantificación de estos Productos se haya en los libros de evaluación y de asesoría que se generan para los docentes de un Centro Local y que cada uno va llenando a lo largo del semestre como parte de sus tareas administrativas normales. HEVASU permite reunir los libros de varios docentes y de varios lapsos académicos para generar un sólo informe consolidado de planificación operativa, o alternativamente, generar un informe para cada docente.
+
+Para generar el informe de planificación, primero reuna en el directorio de trabajo\footnote{O cambie de directorio de trabajo para indicar la carpeta donde se encuentran los archivos.} todos los libros \fileformat{xls} de evaluación y asesoria del grupo de docentes y de los lapsos académicos comprendidos en el año para el cual se desea generar el informe\footnote{Recuerde que un año del calendario puede abarcar dos o más lapsos académicos}. En el selector de lapso académico de la ventana principal de la aplicación, seleccione cualquier lapso académico que contenga el año del informe en su identificador\footnote{Por ejemplo, el lapso ``2014-1'' se corresponde al año 2014. Si desea generar el informe para el 2014, ese lapso académico servirá.}. Seguidamente seleccione la opción ``Generar reporte de planificación'' desde el submenú ``Reportes y Certificados'', tras lo cual comenzará la operación de generar el informe de planificación. Como se explicó en la sección anterior de este manual, los mensajes en la barra de estatus indicarán la marcha del proceso. La generación del informe de planificación tarda cierto tiempo y si el proceso se detiene y no avanza tras un lapso anormal de espera, quizás haya ocurrido un error en la lectura de algún archivo \fileformat{xls}. En tal caso siga las indicaciones que se dieron al final de la sección anterior. Si todo marcha exitosamente, se genererará un archivo de nombre \archivo{informe\_planificacion.pdf} en el directorio de trabajo. Puede ver una de las páginas de un tal informe en la Figura \ref{fig:reporte_planificacion_pdf}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[page=6,width=0.8\textwidth]{planificacion.pdf}
+	\caption{Una página del reporte de actividades}
+	\label{fig:reporte_planificacion_pdf}
+\end{figure}
+
+En los reportes de planificación que genera HEVASU se organiza la información por Áreas de Acción, indicando los respectivos códigos del plan operativo. Para cada Área y Subárea de Acción, se cuantifican los productos para los doce (12) meses del año, lo cual facilita la rendición del plan operativo mediante la aplicación en la nube que actualmente usamos en la Universidad. En el reporte de planificación, se incluye en las primeras páginas una lista de todos los archivos (de cada uno de los docentes) consultados en la elaboración del informe. En caso de producirse errores, estos se indican en la o las páginas finales del reporte, a fín de facilitar su depuración.
+
+\section{Los Certificados de Aprobación del Curso Introductorio}
+
+La generación de los Certificados de Aprobación del Curso Introductorio es otra de las tareas que HEVASU facilita enormemente. Para generar los certificados, primero cree una carpeta en su disco con un nombre sugestivo, como por ejemplo \carpeta{CI\_2014-1}. En esa carpeta deberá colocar el libro de evaluación del orientador para el cual se quieren elaborar los certificados.  Eventualmente, HEVASU creará todos los certificados \fileformat{pdf} en la misma carpeta donde colocó el libro de evaluación. Tras seleccionar la opción de ``Generar certificados de aprobación del CI'' en el submenú ``Reportes y Certificados'', aparecerá una ventana de dialogo emergente pidiéndole la ubicación del archivo \fileformat{xls} con el libro de evaluación del orientador. Tras seleccionar este archivo, comenzará el proceso de generación de los Certificados de Aprobación para cada uno de los estudiantes que aprobaron el Curso Introductorio, según la información reflejada en el archivo. Esto tomará algún tiempo dependiendo de la cantidad de estudiantes que aprobraron- se indicará la marcha de la operación con mensajes en la barra de estatus. El resultado final es un conjunto de certificados en \fileformat{pdf} como el de la Figura \ref{fig:certificado_aprobacion}.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\textwidth]{05471383.pdf}
+	\caption{Un Certificado de Aprobación del Curso Introductorio}
+	\label{fig:certificado_aprobacion}
+\end{figure}
+
+Como puede observar, el certificado de aprobación se genera de manera ``personalizada'' para cada estudiante. Los códigos de barra en la parte superior del certificado se corresponden al lapso académico, el código de Unidad de Apoyo-Centro Local al cual está adscrito el estudiante y su número de cédula. En el cuerpo del certificado se indica el nombre completo, la cédula, el lapso de aprobación, la fecha y el lugar en el que son emitidos los certificados\footnote{El lugar de emisión depende de la sede de adscripción del orientador.}. En la parte inferior del certificado hay un espacio para la firma y el nombre del orientador (en nuestra Unidad de Apoyo la Orientadora es la Profesora Nancy Bello). El nombre, tal como figura en el certificado, se puede cambiar ingresando otro nombre en la celda \texttt{C6} de la hoja de evaluación (ver Figura \ref{fig:libro_OL_orientador}). Así por ejemplo, podriamos colocar ``Lic. Nancy Bello'' en esa celda y así aparecería en todos los certificados de aprobación. El texto del certificado se coloca sobre un fondo ``marca de agua'' que representa el arbol samán en la Sede Central de la UNA, que es el símbolo representativo de nuestra Universidad.  En conjunto, la marca de agua y los códigos de barra dificultan la alteración de estos certificados, de modo que son características de seguridad y no sólo elementos estéticos.  Los prefijos del nombre de archivo de cada uno de estos certificados es una secuencia de 8 dígitos con la cédula de cada estudiante.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=1\textwidth]{libro_OL_orientador.png}
+	\caption{El libro de evaluación del orientador}
+	\label{fig:libro_OL_orientador}
+\end{figure}
+
+
+
+
+
+\backmatter
+%\bibliographystyle{flexbib}
+%\nocite{*}
+%\bibliography{principal}
+\end{document}
+
+
