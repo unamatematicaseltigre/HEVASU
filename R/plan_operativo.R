@@ -518,7 +518,7 @@ generar_reporte_planificacion <- function() {
 		colClasses=rep("character",5))
 	tabla_plan <- with(plantmp,table(mes,producto,subaccion,codigo_plan))
 	codigos_en_plan <- dimnames(tabla_plan)$codigo_plan
-	unlink("plan_operativo.csv")
+	#unlink("plan_operativo.csv")
 	#Lee algunos html: encabezados y pies de página carreras
 	dir_archivo <- file.path(dir_programa,"R",
 		"encabezados_otros_plan.html")

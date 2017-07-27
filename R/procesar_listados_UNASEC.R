@@ -66,10 +66,9 @@ generar_nomina_regular_CL <-
 					j <- gsub("^ *[0-9]+ +","",i)
 					#sustituir multiples espacios por el caracter de separación
 					j <- gsub("( )\\1+",car_sep,j)
-					#sustituir por el carcter de separación en casos especiales
+					#sustituir por el caractér de separación en casos especiales
 					j <- gsub("([A-Z])( )([0-9])",paste0("\\1",car_sep,"\\3"),j)
 					j <- gsub("([A-Z])([0-9])",paste0("\\1",car_sep,"\\2"),j)
-					#j <- gsub("([0-9])( )([0-9])",paste0("\\1",car_sep,"\\3"),j)
 					j <- gsub("([0-9])( )([A-Z])",paste0("\\1",car_sep,"\\3"),j)
 					k <- strsplit(j,car_sep)[[1]]
 					ubicacion <- oficinas[
@@ -193,7 +192,7 @@ generar_nomina_regular_CL <-
 			}
 			else {
 				if (!j %in% c("\n","\x0c","")) {
-					#sustituir por el carcter de separación en casos especiales
+					#sustituir por el caracter de separación en casos especiales
 					j <- gsub("([A-Z])( )([0-9])",paste0("\\1",car_sep,"\\3"),j)
 					j <- gsub("([A-Z])([0-9])",paste0("\\1",car_sep,"\\2"),j)
 					j <- gsub("([0-9])( )([0-9])",paste0("\\1",car_sep,"\\3"),j)
@@ -409,10 +408,6 @@ generar_cronograma <- function(archivo_pdf) {
 	#suministrado.
 	#códigos de error para esta función
 	#  01 - archivo pdf defectuoso
-	#  02 - la ubicacion (CL - OA) no existe, por lo tanto el pdf
-	#       no es un listado nomina UNASEC válido.
-	#  03 - la data del pdf y la del csv no se corresponden
-	#  04 - Debe revisar y luego reparar el archivo csv.
 	#  00 - todo bien
 	mensaje <- paste("Procesando archivo: [",paste(rep("░",20),
 		collapse=""),"]",sep="")
@@ -431,7 +426,7 @@ generar_cronograma <- function(archivo_pdf) {
 		"^C","^( )+D",sep="|")
 	#para la definición de locs y cloa, ver "editar_asesores.R"
 	car_sep <- "\t"
-	#Leer el archivo matricula para el primer pase
+	#Leer el archivo cronogama para el primer pase
 	archivo <- file("cronograma", "r", blocking = FALSE)
 	lineas <- readLines(archivo)
 	close(archivo)
@@ -504,5 +499,6 @@ generar_cronograma <- function(archivo_pdf) {
 	write.table(cronograma,file="cronograma.csv",sep="\t",
 		row.names=FALSE)
 	svalue(barra_status) <- ""
+	return(0)
 }
 
