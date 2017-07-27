@@ -1,0 +1,75 @@
+\documentclass[10pt]{memoir}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdfusetitle]{hyperref}
+%hyperlinks rendering
+\hypersetup{
+    colorlinks,
+    linkcolor={red!80!black},
+    citecolor={green!80!black},
+    urlcolor={blue!80!black}
+}
+
+\usepackage[letterpaper,margin=1.6cm]{geometry}
+%configuración de fuentes, colores y gráficos
+\usepackage{pslatex}
+\usepackage[pdftex]{graphicx}
+\usepackage[dvipsnames]{color,colortbl}
+\definecolor{light-gray}{gray}{0.85}
+\usepackage{tikz}
+
+\usepackage[code=2/5-Datalogic,X=.6mm,ratio=3,H=0.8cm]{makebarcode}
+
+\renewcommand{\sfdefault}{phv}
+\renewcommand*{\familydefault}{\sfdefault}
+
+\hyphenpenalty 100000
+
+%variables y comandos
+\newcommand{\estudiante}{nombre}
+\newcommand{\carrera}{lacarrera}
+\newcommand{\cedula}{id}
+\newcommand{\clog}{creditos}
+\newcommand{\iac}{indice_academico}
+\newcommand{\lapsosinguion}{lapso_sin_guion}
+\newcommand{\centrolocal}{centro_local}
+\newcommand{\oficinadeapoyo}{oficina_de_apoyo}
+\newcommand{\paginaweb}{pagina_web}
+\def\hoy{\leavevmode\hbox{\twodigits\day-\twodigits\month-\the\year}}
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+
+\begin{document}
+\pagenumbering{gobble}
+  \begin{tabular}{m{10ex} m{70ex}}
+    \begin{tikzpicture}[scale=0.8]
+			\filldraw[fill=blue!30!black, draw=black] (0,1) -- (0,0.77) -- (0.3,0.46) -- (0.3,0.69) -- cycle;
+			\filldraw[fill=blue!30!black, draw=black] (0,0.54) -- (0,0.31) -- (0.26,0.04) -- (0.29,0.02) -- (0.32,0.01) -- (0.35,0.02) -- (0.38,0.04) -- (0.39,0.06) -- (0.4,0.1) -- (0.4,0.69) -- (0.43,0.73) -- (0.45,0.74) -- (0.48,0.73) -- (0.72,0.46) -- (0.72,0.70) -- (0.50,0.95) -- (0.47,0.97) -- (0.43,0.98) -- (0.39,0.97) -- (0.36,0.95) --(0.35,0.93) -- (0.34,0.89) -- (0.34,0.28) -- (0.31,0.27) -- (0.28,0.28) -- cycle;
+			\filldraw[fill=blue!30!black, draw=black] (0.44,0.54) -- (0.44,0.31) -- (0.70,0.04) -- (0.73,0.02) -- (0.76,0.01) -- (0.79,0.02) -- (0.82,0.04) -- (0.83,0.06) -- (0.84,0.1) -- (0.84,0.69) -- (0.87,0.73) -- (0.89,0.74) -- (0.92,0.73) -- (1.16,0.46) -- (1.16,0.70) -- (0.94,0.95) -- (0.91,0.97) -- (0.87,0.98) -- (0.83,0.97) -- (0.80,0.95) --(0.79,0.93) -- (0.78,0.89) -- (0.78,0.28) -- (0.75,0.27) -- (0.72,0.28) -- cycle;
+			\filldraw[fill=blue!30!black, draw=black] (0.88,0.54) -- (0.88,0.31) -- (1.16,0.01) -- (1.16,0.24) -- cycle;
+		\end{tikzpicture}
+		& \parbox{70ex}{\huge \centering \vspace{1ex}FICHA ACADEMICA}\\
+	\end{tabular}
+	
+	\vspace*{2ex}
+	
+	\begin{tabular}{m{6ex} m{6ex} m{40ex} m{6ex} m{6ex} m{6ex} m{10ex}}
+		\multicolumn{2}{l}{ALUMNO} & \multicolumn{5}{l}{\estudiante}\\
+		\multicolumn{2}{l}{CARRERA} & \multicolumn{5}{l}{\carrera}\\
+		\multicolumn{2}{l}{CENTRO LOCAL} & \multicolumn{4}{l}{\centrolocal} & Fecha\\
+		\multicolumn{2}{l}{OFICINA} & \multicolumn{4}{l}{\oficinadeapoyo} & \hoy\\
+		\rowcolor{light-gray}
+		Lapso & Curso & \multicolumn{2}{l}{Asignaturas} & Crd & Nota & Observación\\
+	\end{tabular}
+
+	\vspace*{2ex}
+	
+	\begin{tabular}{m{15ex} m{29ex} m{8ex} m{23ex} m{10ex}}
+	 En Periodo & Creditos Logrados & \clog & Indice Académico & \iac \\
+	 \multicolumn{5}{l}{\footnotesize{}OBSERVACION : NO ES VALIDO COMO CONSTANCIA DE NOTAS} \\
+	 \multicolumn{5}{c}{\href{\paginaweb}{\paginaweb}} \\
+	 \multicolumn{5}{c}{} \\
+	 \multicolumn{2}{l}{\barcode{\cedula}} & {} & \multicolumn{2}{r}{\barcode{\lapsosinguion}} \\
+	 \multicolumn{2}{l}{\cedula} & {} & \multicolumn{2}{r}{\lapsosinguion} \\
+	\end{tabular}
+\end{document}
